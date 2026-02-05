@@ -55,8 +55,8 @@ const About = () => {
     return (
         <section id="about" className="about-section-v2">
             <div className="about-container">
-                {/* Left Side - Main Content */}
-                <div className="about-main">
+                {/* Header - Centered */}
+                <div className="about-header">
                     <div className="about-label">
                         <Sparkles size={14} />
                         About Me
@@ -90,21 +90,29 @@ const About = () => {
                     </Button>
                 </div>
 
-                {/* Right Side - Cards */}
-                <div className="about-cards">
+                {/* Cards Grid - Symmetrical */}
+                <div className="about-grid">
                     {/* Stats Row */}
-                    <div className="cards-row">
-                        <div className="stat-card" ref={yearsRef}>
-                            <div className="stat-value">{years}+</div>
-                            <div className="stat-label">Years Experience</div>
-                        </div>
-                        <div className="stat-card" ref={projectsRef}>
-                            <div className="stat-value">{projects}+</div>
-                            <div className="stat-label">Projects Delivered</div>
+                    <div className="stat-card" ref={yearsRef}>
+                        <div className="stat-value">{years}+</div>
+                        <div className="stat-label">Years Experience</div>
+                    </div>
+
+                    <div className="stat-card" ref={projectsRef}>
+                        <div className="stat-value">{projects}+</div>
+                        <div className="stat-label">Projects Delivered</div>
+                    </div>
+
+                    {/* Education Card */}
+                    <div className="edu-card">
+                        <div className="edu-icon">🎓</div>
+                        <div className="edu-content">
+                            <span className="edu-degree">MSc IoT & Smart Systems</span>
+                            <span className="edu-school">WHZ Zwickau, Germany</span>
                         </div>
                     </div>
 
-                    {/* Skills Card */}
+                    {/* Skills Card - Spans 2 columns */}
                     <div className="skills-card">
                         <div className="skills-header">
                             <Code2 size={18} />
@@ -121,15 +129,6 @@ const About = () => {
                                     <span>{skill.name}</span>
                                 </div>
                             ))}
-                        </div>
-                    </div>
-
-                    {/* Education Badge */}
-                    <div className="edu-card">
-                        <div className="edu-icon">🎓</div>
-                        <div className="edu-content">
-                            <span className="edu-degree">MSc IoT & Smart Systems</span>
-                            <span className="edu-school">WHZ Zwickau, Germany</span>
                         </div>
                     </div>
                 </div>
