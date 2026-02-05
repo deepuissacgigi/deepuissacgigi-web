@@ -412,63 +412,67 @@ const Contact = () => {
                     </p>
                 </div>
 
-                <div className="contact-grid">
-                    {/* Contact Info Panel */}
-                    <div className="glass-panel" style={{ padding: '2rem' }}>
-                        <h3 className="glow-on-hover" style={{ fontSize: '1.5rem', marginBottom: '2rem' }}>Contact Info</h3>
+                <div className="contact-card">
+                    {/* Left Side - Contact Info */}
+                    <div className="contact-info-side">
+                        <div>
+                            <h3 style={{ fontSize: '1.3rem', marginBottom: '1.5rem', fontWeight: '600' }}>Contact Info</h3>
 
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                                <div style={{ background: 'rgba(100,108,255,0.1)', padding: '0.8rem', borderRadius: '50%', color: '#646cff' }}>
-                                    <Phone size={20} />
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                                <div className="contact-info-item">
+                                    <div className="contact-icon-circle">
+                                        <Phone size={18} />
+                                    </div>
+                                    <div>
+                                        <p style={{ fontSize: '0.75rem', color: '#666', marginBottom: '0.2rem' }}>Phone / WhatsApp</p>
+                                        <p style={{ fontSize: '0.95rem', color: '#fff' }}>(+49) 15511380944</p>
+                                        <p style={{ fontSize: '0.95rem', color: '#fff' }}>(+91) 7907910860</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p style={{ fontSize: '0.85rem', color: '#888' }}>Phone / WhatsApp</p>
-                                    <p style={{ fontSize: '1rem', color: '#fff' }}>(+49) 15511380944</p>
-                                    <p style={{ fontSize: '1rem', color: '#fff' }}>(+91) 7907910860</p>
-                                </div>
-                            </div>
 
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                                <div style={{ background: 'rgba(100,108,255,0.1)', padding: '0.8rem', borderRadius: '50%', color: '#646cff' }}>
-                                    <Mail size={20} />
+                                <div className="contact-info-item">
+                                    <div className="contact-icon-circle">
+                                        <Mail size={18} />
+                                    </div>
+                                    <div>
+                                        <p style={{ fontSize: '0.75rem', color: '#666', marginBottom: '0.2rem' }}>Email</p>
+                                        <p style={{ fontSize: '0.95rem', color: '#fff' }}>deepuissacgigi@gmail.com</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p style={{ fontSize: '0.85rem', color: '#888' }}>Email</p>
-                                    <p style={{ fontSize: '1rem', color: '#fff' }}>deepuissacgigi@gmail.com</p>
-                                </div>
-                            </div>
 
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                                <div style={{ background: 'rgba(100,108,255,0.1)', padding: '0.8rem', borderRadius: '50%', color: '#646cff' }}>
-                                    <MapPin size={20} />
-                                </div>
-                                <div>
-                                    <p style={{ fontSize: '0.85rem', color: '#888' }}>Location</p>
-                                    <p style={{ fontSize: '1rem', color: '#fff' }}>Halle (Saale), Germany</p>
+                                <div className="contact-info-item">
+                                    <div className="contact-icon-circle">
+                                        <MapPin size={18} />
+                                    </div>
+                                    <div>
+                                        <p style={{ fontSize: '0.75rem', color: '#666', marginBottom: '0.2rem' }}>Location</p>
+                                        <p style={{ fontSize: '0.95rem', color: '#fff' }}>Halle (Saale), Germany</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div style={{ marginTop: '2.5rem' }}>
-                            <p style={{ marginBottom: '1rem', fontSize: '0.9rem', color: '#aaa' }}>Socials</p>
-                            <div style={{ display: 'flex', gap: '1rem' }}>
-                                <a href="https://www.instagram.com/i.s.s.a.c._/" target="_blank" rel="noreferrer" className="btn-icon" style={{ color: '#fff', background: 'rgba(255,255,255,0.05)', padding: '0.8rem', borderRadius: '8px', transition: '0.3s' }}>
-                                    <Instagram size={20} />
+                        <div style={{ marginTop: '1.5rem' }}>
+                            <p style={{ marginBottom: '0.75rem', fontSize: '0.8rem', color: '#666', fontWeight: '500' }}>Socials</p>
+                            <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                <a href="https://www.instagram.com/i.s.s.a.c._/" target="_blank" rel="noreferrer" className="social-icon-btn">
+                                    <Instagram size={18} />
                                 </a>
-                                <div className="btn-icon" style={{ color: '#fff', background: 'rgba(255,255,255,0.05)', padding: '0.8rem', borderRadius: '8px', cursor: 'pointer' }}>
-                                    <MessageCircle size={20} />
+                                <div className="social-icon-btn">
+                                    <MessageCircle size={18} />
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Contact Form */}
+                    {/* Vertical Divider */}
+                    <div className="contact-divider"></div>
+
+                    {/* Right Side - Form */}
                     <form
                         ref={form}
-                        className="contact-form glass-panel"
+                        className="contact-form-side"
                         onSubmit={sendEmail}
-                        style={{ padding: '2rem' }}
                     >
                         <div className="form-group">
                             <label htmlFor="name">Name</label>
@@ -493,7 +497,7 @@ const Contact = () => {
                             {emailError && (
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '0.5rem' }}>
                                     <AlertCircle size={14} style={{ color: '#ef4444' }} />
-                                    <span style={{ color: '#ef4444', fontSize: '0.85rem' }}>
+                                    <span style={{ color: '#ef4444', fontSize: '0.8rem' }}>
                                         {emailError}
                                     </span>
                                     {typoSuggestion && (
@@ -501,12 +505,12 @@ const Contact = () => {
                                             type="button"
                                             onClick={applyTypoSuggestion}
                                             style={{
-                                                background: 'rgba(100,108,255,0.2)',
-                                                border: '1px solid #646cff',
-                                                color: '#646cff',
-                                                padding: '2px 8px',
+                                                background: '#646cff',
+                                                color: '#fff',
+                                                border: 'none',
+                                                padding: '0.25rem 0.6rem',
                                                 borderRadius: '4px',
-                                                fontSize: '0.8rem',
+                                                fontSize: '0.75rem',
                                                 cursor: 'pointer'
                                             }}
                                         >
@@ -519,7 +523,7 @@ const Contact = () => {
                             {isVerifying && (
                                 <span style={{
                                     color: '#646cff',
-                                    fontSize: '0.85rem',
+                                    fontSize: '0.8rem',
                                     marginTop: '0.5rem',
                                     display: 'flex',
                                     alignItems: 'center',
@@ -527,12 +531,12 @@ const Contact = () => {
                                     fontFamily: 'monospace'
                                 }}>
                                     <Loader2 className="animate-spin" size={14} />
-                                    <span style={{ minWidth: '120px' }}>Verifying email{verifyingDots}</span>
+                                    <span style={{ minWidth: '100px' }}>Verifying email{verifyingDots}</span>
                                 </span>
                             )}
                             {/* Verified Indicator */}
                             {isVerified && !emailError && (
-                                <span style={{ color: '#10b981', fontSize: '0.85rem', marginTop: '0.5rem', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                                <span style={{ color: '#10b981', fontSize: '0.8rem', marginTop: '0.5rem', display: 'flex', alignItems: 'center', gap: '5px' }}>
                                     <CheckCircle2 size={14} /> Email verified
                                 </span>
                             )}
@@ -543,7 +547,7 @@ const Contact = () => {
                             <textarea
                                 name="message"
                                 id="message"
-                                rows="5"
+                                rows="4"
                                 placeholder="How can I help you?"
                                 required
                                 onFocus={handleMessageFocus}
@@ -556,8 +560,8 @@ const Contact = () => {
                             className={`professional-send-btn ${isLoading ? 'loading' : ''} ${status === 'success' ? 'success' : ''}`}
                             style={{
                                 width: '100%',
-                                marginTop: '1rem',
-                                height: '54px',
+                                marginTop: '0.5rem',
+                                height: '48px',
                                 transition: 'all 0.3s ease',
                                 opacity: 1
                             }}
@@ -584,7 +588,7 @@ const Contact = () => {
                         </Button>
 
                         {status === 'error' && (
-                            <p style={{ color: '#ff6b6b', marginTop: '1rem', fontSize: '0.9rem', textAlign: 'center' }}>
+                            <p style={{ color: '#ff6b6b', marginTop: '0.75rem', fontSize: '0.85rem', textAlign: 'center' }}>
                                 Something went wrong. Please try again or email me directly.
                             </p>
                         )}
