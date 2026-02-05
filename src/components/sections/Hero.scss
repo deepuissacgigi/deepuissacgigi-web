@@ -10,11 +10,12 @@ $text-muted: rgba(255, 255, 255, 0.5);
 .hero-section-v2 {
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
-    padding: 6rem 2rem;
+    padding: 6rem 2rem 2rem;
 }
 
 /* Background Effects */
@@ -297,12 +298,9 @@ $text-muted: rgba(255, 255, 255, 0.5);
     }
 }
 
-/* Scroll Indicator - Fixed at Bottom of Section */
+/* Scroll Indicator - Pushed to Bottom with Flex */
 .scroll-indicator {
-    position: absolute;
-    bottom: 3rem;
-    left: 50%;
-    transform: translateX(-50%);
+    margin-top: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -316,7 +314,8 @@ $text-muted: rgba(255, 255, 255, 0.5);
     animation: fadeIn 1s ease 1s both;
     transition: all 0.3s ease;
     z-index: 100;
-    padding: 0.5rem;
+    padding: 1rem;
+    position: relative;
 
     &:hover {
         color: $accent;
