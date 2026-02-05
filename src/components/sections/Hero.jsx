@@ -59,8 +59,7 @@ const Hero = () => {
 
                 {/* Main Title */}
                 <h1 className="hero-name">
-                    <span className="name-line">Deepu Issac</span>
-                    <span className="name-line gradient-text">Gigi</span>
+                    Deepu Issac <span className="gradient-text">Gigi</span>
                 </h1>
 
                 {/* Role Tags */}
