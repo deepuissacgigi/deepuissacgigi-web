@@ -424,7 +424,8 @@ const Contact = () => {
                                 </div>
                                 <div>
                                     <p style={{ fontSize: '0.85rem', color: '#888' }}>Phone / WhatsApp</p>
-                                    <p style={{ fontSize: '1rem', color: '#fff' }}>(+49) 15510437615</p>
+                                    <p style={{ fontSize: '1rem', color: '#fff' }}>(+49) 15511380944</p>
+                                    <p style={{ fontSize: '1rem', color: '#fff' }}>(+91) 7907910860</p>
                                 </div>
                             </div>
 
@@ -444,7 +445,7 @@ const Contact = () => {
                                 </div>
                                 <div>
                                     <p style={{ fontSize: '0.85rem', color: '#888' }}>Location</p>
-                                    <p style={{ fontSize: '1rem', color: '#fff' }}>Zwickau, Germany</p>
+                                    <p style={{ fontSize: '1rem', color: '#fff' }}>Halle (Saale), Germany</p>
                                 </div>
                             </div>
                         </div>

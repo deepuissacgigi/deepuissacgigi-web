@@ -28,8 +28,8 @@ const SeoHead = ({
         "url": "https://yourdomain.com",
         "sameAs": [
             "https://www.instagram.com/i.s.s.a.c._/",
-            "https://www.linkedin.com/in/deepu-issac/",
-            "https://github.com/deepuissac"
+            "https://www.linkedin.com/in/deepuissacgigi/",
+            "https://github.com/deepuissacgigi"
         ],
         "jobTitle": "Full Stack Developer",
         "worksFor": {
