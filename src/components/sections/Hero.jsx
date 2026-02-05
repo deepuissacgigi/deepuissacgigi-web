@@ -53,10 +53,10 @@ const Hero = () => {
             {/* Content */}
             <div className="hero__content">
                 {/* Status Badge */}
-                <div className="hero__badge">
+                {/* <div className="hero__badge">
                     <span className="hero__badge-dot"></span>
                     Available for opportunities
-                </div>
+                </div> */}
 
                 {/* Name */}
                 <h1 className="hero__title">
