@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useIntersectionObserver from '../../hooks/useIntersectionObserver';
+import { Briefcase, GraduationCap, MapPin, Calendar } from 'lucide-react';
+import './ExperienceTimeline.scss';
 
 const experiences = [
     {
@@ -9,9 +11,9 @@ const experiences = [
         location: "Kochi, India",
         date: "01/2021 - 07/2023",
         description: [
-            "Designed, developed and maintained company website.",
-            "Monitored and optimized the website, involving user engagement.",
-            "Improved SEO and Made User Interactive Landing Pages for different company Products."
+            "Designed, developed and maintained company website",
+            "Monitored and optimized the website for user engagement",
+            "Improved SEO and created interactive landing pages"
         ]
     },
     {
@@ -21,19 +23,19 @@ const experiences = [
         location: "Kochi, India",
         date: "11/2019 - 05/2021",
         description: [
-            "Developed user interfaces that were cross-browser and device compatible.",
-            "Developed front-end architecture that improved scalability and performance.",
-            "Coached college interns with HTML & CSS."
+            "Developed cross-browser and device compatible interfaces",
+            "Built front-end architecture for scalability and performance",
+            "Mentored college interns in HTML & CSS"
         ]
     },
     {
         id: 3,
-        role: "UI Designing",
+        role: "UI Designer Intern",
         company: "Zoople",
         location: "Kochi, India",
         date: "08/2019 - 10/2019",
         description: [
-            "Focused on UI Designing principles and implementation."
+            "Focused on UI design principles and implementation"
         ]
     }
 ];
@@ -44,8 +46,8 @@ const education = [
         role: "Masters in IoT and Smart Systems",
         company: "Westsächsische Hochschule Zwickau",
         location: "Zwickau, Germany",
-        date: "08/2023 - Current",
-        description: ["Specializing in Internet of Things and Smart Systems."]
+        date: "08/2023 - Present",
+        description: ["Specializing in Internet of Things and Smart Systems"]
     },
     {
         id: 5,
@@ -53,51 +55,58 @@ const education = [
         company: "Loyola Institute of Technology",
         location: "Tamil Nadu, India",
         date: "06/2015 - 06/2019",
-        description: ["Foundation in Computer Science and Engineering."]
+        description: ["Foundation in Computer Science and Engineering"]
     }
 ];
 
 const ExperienceTimeline = () => {
+    const [activeTab, setActiveTab] = useState('experience');
     const [headerRef, headerVisible] = useIntersectionObserver({ triggerOnce: true });
 
-    return (
-        <section className="section-container" style={{ position: 'relative', overflow: 'hidden' }}>
-            <div className="container">
-                <div ref={headerRef} className={`section-header ${headerVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+    const currentData = activeTab === 'experience' ? experiences : education;
+    const Icon = activeTab === 'experience' ? Briefcase : GraduationCap;
 
-                    <h2
-                        className={`section-title ${headerVisible ? 'animate-glitch-reveal' : 'opacity-0'}`}
-                        data-text="Experience & Education"
-                    >
-                        Experience & Education
-                    </h2>
-                    <p className="section-description">
-                        A timeline of my professional journey and academic milestones.
+    return (
+        <section className="experience-section">
+            <div className="container">
+                {/* Header */}
+                <div
+                    ref={headerRef}
+                    className={`experience-header ${headerVisible ? 'animate-fade-in' : 'opacity-0'}`}
+                >
+                    <h2>Experience & Education</h2>
+                    <p className="experience-subtitle">
+                        My professional journey and academic background
                     </p>
                 </div>
 
-                <div className="timeline-container" style={{ position: 'relative', maxWidth: '800px', margin: '0 auto' }}>
-                    {/* Central Line */}
-                    <div style={{
-                        position: 'absolute',
-                        left: '20px',
-                        top: 0,
-                        bottom: 0,
-                        width: '2px',
-                        background: 'rgba(100, 108, 255, 0.3)',
-                        borderRadius: '2px'
-                    }}></div>
+                {/* Tab Navigation */}
+                <div className="tab-navigation">
+                    <button
+                        className={`tab-btn ${activeTab === 'experience' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('experience')}
+                    >
+                        <Briefcase size={18} />
+                        Experience
+                    </button>
+                    <button
+                        className={`tab-btn ${activeTab === 'education' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('education')}
+                    >
+                        <GraduationCap size={18} />
+                        Education
+                    </button>
+                </div>
 
-                    {/* Works */}
-                    <h3 style={{ marginLeft: '50px', marginBottom: '2rem', color: '#a5b4fc', fontSize: '1.5rem' }}>Work Experience</h3>
-                    {experiences.map((exp, index) => (
-                        <TimelineItem key={exp.id} data={exp} index={index} />
-                    ))}
-
-                    {/* Education */}
-                    <h3 style={{ marginLeft: '50px', margin: '3rem 0 2rem', color: '#a5b4fc', fontSize: '1.5rem' }}>Education</h3>
-                    {education.map((edu, index) => (
-                        <TimelineItem key={edu.id} data={edu} index={index + 3} />
+                {/* Cards Container */}
+                <div className="cards-container" key={activeTab}>
+                    {currentData.map((item, index) => (
+                        <ExperienceCard
+                            key={item.id}
+                            data={item}
+                            index={index}
+                            Icon={Icon}
+                        />
                     ))}
                 </div>
             </div>
@@ -105,44 +114,44 @@ const ExperienceTimeline = () => {
     );
 };
 
-const TimelineItem = ({ data, index }) => {
-    const [ref, isVisible] = useIntersectionObserver({ triggerOnce: true, threshold: 0.2 });
+const ExperienceCard = ({ data, index, Icon }) => {
+    const [ref, isVisible] = useIntersectionObserver({ triggerOnce: true, threshold: 0.1 });
 
     return (
         <div
             ref={ref}
-            className={`timeline-item glass-panel ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
-            style={{
-                marginLeft: '50px',
-                marginBottom: '2rem',
-                padding: '1.5rem',
-                position: 'relative',
-                animationDelay: `${index * 0.1}s`
-            }}
+            className={`experience-card ${isVisible ? 'visible' : ''}`}
+            style={{ animationDelay: `${index * 0.1}s` }}
         >
-            {/* Dot on Line */}
-            <div style={{
-                position: 'absolute',
-                left: '-39px',
-                top: '25px',
-                width: '16px',
-                height: '16px',
-                borderRadius: '50%',
-                background: '#646cff',
-                boxShadow: '0 0 10px #646cff'
-            }}></div>
-
-            <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', marginBottom: '0.5rem' }}>
-                <h4 style={{ fontSize: '1.2rem', fontWeight: '600', color: '#fff' }}>{data.role}</h4>
-                <span style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.6)', background: 'rgba(255,255,255,0.05)', padding: '0.2rem 0.6rem', borderRadius: '4px' }}>{data.date}</span>
+            {/* Icon */}
+            <div className="card-icon">
+                <Icon size={24} />
             </div>
-            <h5 style={{ fontSize: '1rem', color: '#a5b4fc', marginBottom: '1rem' }}>{data.company} <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.9rem' }}>• {data.location}</span></h5>
 
-            <ul style={{ paddingLeft: '1.2rem', color: 'rgba(255,255,255,0.8)', fontSize: '0.95rem' }}>
-                {data.description.map((desc, i) => (
-                    <li key={i} style={{ marginBottom: '0.5rem' }}>{desc}</li>
-                ))}
-            </ul>
+            {/* Content */}
+            <div className="card-body">
+                <div className="card-header">
+                    <h3 className="card-role">{data.role}</h3>
+                    <div className="card-date">
+                        <Calendar size={14} />
+                        {data.date}
+                    </div>
+                </div>
+
+                <div className="card-company">
+                    <span className="company-name">{data.company}</span>
+                    <span className="company-location">
+                        <MapPin size={12} />
+                        {data.location}
+                    </span>
+                </div>
+
+                <ul className="card-description">
+                    {data.description.map((desc, i) => (
+                        <li key={i}>{desc}</li>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 };
