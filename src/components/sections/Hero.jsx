@@ -42,46 +42,47 @@ const Hero = () => {
     };
 
     return (
-        <section className="hero-section-v2">
-            {/* Background Effects */}
-            <div className="hero-bg-effects">
-                <div className="gradient-orb orb-1"></div>
-                <div className="gradient-orb orb-2"></div>
-                <div className="grid-overlay"></div>
+        <section className="hero">
+            {/* Background */}
+            <div className="hero__background">
+                <div className="hero__orb hero__orb--1"></div>
+                <div className="hero__orb hero__orb--2"></div>
+                <div className="hero__grid"></div>
             </div>
 
-            <div className="hero-container">
+            {/* Content */}
+            <div className="hero__content">
                 {/* Status Badge */}
-                <div className="status-badge">
-                    <span className="status-dot"></span>
+                <div className="hero__badge">
+                    <span className="hero__badge-dot"></span>
                     Available for opportunities
                 </div>
 
-                {/* Main Title */}
-                <h1 className="hero-name">
-                    Deepu Issac <span className="gradient-text">Gigi</span>
+                {/* Name */}
+                <h1 className="hero__title">
+                    Deepu Issac <span className="hero__title--gradient">Gigi</span>
                 </h1>
 
                 {/* Role Tags */}
-                <div className="role-tags">
+                <div className="hero__roles">
                     {roles.map((role) => (
                         <span
                             key={role.label}
-                            className="role-tag"
-                            style={{ '--tag-color': role.color }}
+                            className="hero__role"
+                            style={{ '--color': role.color }}
                         >
                             {role.label}
                         </span>
                     ))}
                 </div>
 
-                {/* Subtitle with Typewriter */}
-                <p className="hero-tagline">
+                {/* Tagline */}
+                <p className="hero__tagline">
                     <Typewriter text="Building digital experiences that matter." delay={60} />
                 </p>
 
-                {/* CTA Buttons */}
-                <div className="hero-actions">
+                {/* Buttons */}
+                <div className="hero__buttons">
                     <Button variant="primary" onClick={() => scrollToSection('projects')}>
                         View Projects
                     </Button>
@@ -91,14 +92,14 @@ const Hero = () => {
                 </div>
 
                 {/* Social Links */}
-                <div className="hero-socials">
+                <div className="hero__socials">
                     {socials.map((social) => (
                         <a
                             key={social.label}
                             href={social.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="social-link"
+                            className="hero__social"
                             aria-label={social.label}
                         >
                             <social.icon size={20} />
@@ -107,11 +108,11 @@ const Hero = () => {
                 </div>
             </div>
 
-            {/* Scroll Indicator - Outside container for bottom positioning */}
-            <div className="scroll-indicator" onClick={() => scrollToSection('about')}>
+            {/* Scroll Indicator - Separate from content */}
+            <button className="hero__scroll" onClick={() => scrollToSection('about')}>
                 <span>Scroll</span>
-                <ChevronDown size={20} />
-            </div>
+                <ChevronDown size={18} />
+            </button>
         </section>
     );
 };
