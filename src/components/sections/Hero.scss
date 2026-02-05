@@ -278,45 +278,53 @@ $text-muted: rgba(255, 255, 255, 0.5);
     position: relative;
     width: auto;
     height: auto;
-    min-width: 50px;
+    min-width: 44px;
     border: none;
-    background: transparent;
-    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    /* Subtle backdrop */
+    backdrop-filter: blur(5px);
+    padding: 0.8rem 1.25rem;
     margin-bottom: 2rem;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0.35rem;
+    /* Tighter gap */
     animation: fadeUp 0.8s ease 0.6s both;
     z-index: 10;
-    border-radius: 30px;
-    /* Pill shape for ripples */
+    border-radius: 40px;
+    transition: all 0.3s ease;
 
     /* Text Style */
     span {
         display: block;
-        font-size: 0.75rem;
-        font-weight: 600;
-        letter-spacing: 3px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.25em;
+        /* Premium wide tracking */
         text-transform: uppercase;
-        color: $text-muted;
+        color: rgba(255, 255, 255, 0.7);
         transition: color 0.3s;
+        margin-right: -0.25em;
+        /* Optical centering fix */
+        line-height: 1;
     }
 
     /* Arrow Style */
     svg {
         display: block;
         color: $accent;
-        width: 24px;
-        height: 24px;
-        filter: drop-shadow(0 0 8px rgba($accent, 0.4));
+        width: 20px;
+        /* Smaller, refined */
+        height: 20px;
+        filter: drop-shadow(0 0 5px rgba($accent, 0.5));
         animation: floatArrow 2s ease-in-out infinite;
         transition: transform 0.3s, color 0.3s;
     }
 
-    /* Pulse Rings - Adapted for Pill */
+    /* Pulse Rings */
     &::before,
     &::after {
         content: '';
@@ -326,8 +334,8 @@ $text-muted: rgba(255, 255, 255, 0.5);
         transform: translate(-50%, -50%);
         width: 100%;
         height: 100%;
-        border: 1px solid rgba($accent, 0.3);
-        border-radius: 30px;
+        border: 1px solid rgba($accent, 0.25);
+        border-radius: 40px;
         opacity: 0;
         animation: ripple 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
     }
@@ -337,12 +345,16 @@ $text-muted: rgba(255, 255, 255, 0.5);
     }
 
     &:hover {
+        background: rgba(255, 255, 255, 0.08);
+        /* Glow on hover */
+        transform: translateY(-2px);
+
         span {
-            color: $accent;
+            color: #fff;
         }
 
         svg {
-            transform: translateY(4px);
+            transform: translateY(3px);
             color: #fff;
         }
     }
