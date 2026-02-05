@@ -5,6 +5,23 @@ import SeoHead from '../components/SeoHead';
 import { SEO_DATA } from '../utils/seoData';
 import './Projects.scss';
 
+/* Tech Icons Mapping - Using Devicons CDN */
+const techIcons = {
+    'React': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
+    'Python': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
+    'AWS': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg',
+    'Java': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg',
+    'Android': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg',
+    'MQTT': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachekafka/apachekafka-original.svg',
+    'Next.js': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg',
+    'WebGL': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg',
+    'Node': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
+    'TensorFlow': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg',
+    'JavaScript': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
+    'TypeScript': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
+    'Figma': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg',
+};
+
 /* 
    PROJECT DATA 
    Each project has a size: 'large', 'medium', or 'small' for the bento grid.
@@ -105,7 +122,12 @@ const Projects = () => {
                                 <p className="card-description">{project.description}</p>
                                 <div className="card-tech">
                                     {project.tech.map((t) => (
-                                        <span key={t}>{t}</span>
+                                        <span key={t} className="tech-tag">
+                                            {techIcons[t] && (
+                                                <img src={techIcons[t]} alt={t} className="tech-icon" />
+                                            )}
+                                            {t}
+                                        </span>
                                     ))}
                                 </div>
                             </div>
