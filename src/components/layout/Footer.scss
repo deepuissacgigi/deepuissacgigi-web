@@ -26,7 +26,7 @@ $bg-dark: rgba(0, 0, 0, 0.9);
                 $accent,
                 transparent);
         background-size: 200% 100%;
-        animation: borderGlow 3s linear infinite;
+        animation: borderGlow 8s ease-in-out infinite;
     }
 
     &__container {
