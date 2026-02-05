@@ -8,6 +8,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import CustomCursor from './components/ui/CustomCursor';
 import LoadingScreen from './components/ui/LoadingScreen';
 import { SpeedInsights } from '@vercel/speed-insights/react';
+import { Analytics } from '@vercel/analytics/react';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           </Routes>
         </Layout>
         <SpeedInsights />
+        <Analytics />
       </Router>
     </HelmetProvider>
   );
