@@ -297,25 +297,26 @@ $text-muted: rgba(255, 255, 255, 0.5);
     }
 }
 
-/* Scroll Indicator - Fixed at Bottom */
+/* Scroll Indicator - Fixed at Bottom of Section */
 .scroll-indicator {
     position: absolute;
-    bottom: 2rem;
+    bottom: 3rem;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
     color: $text-muted;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 500;
     letter-spacing: 2px;
     text-transform: uppercase;
     cursor: pointer;
-    animation: fadeInUp 0.8s ease 0.8s both;
-    transition: color 0.3s;
-    z-index: 10;
+    animation: fadeIn 1s ease 1s both;
+    transition: all 0.3s ease;
+    z-index: 100;
+    padding: 0.5rem;
 
     &:hover {
         color: $accent;
@@ -328,6 +329,16 @@ $text-muted: rgba(255, 255, 255, 0.5);
     svg {
         animation: bounce 2s ease-in-out infinite;
         transition: transform 0.3s;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
     }
 }
 
