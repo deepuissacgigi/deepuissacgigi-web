@@ -40,15 +40,15 @@ const Footer = () => {
                 <div className="footer-col social-col">
                     <h4>Connect</h4>
                     <div className="social-links">
-                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-link">
+                        <a href="https://www.linkedin.com/in/deepuissacgigi/" target="_blank" rel="noopener noreferrer" className="social-link">
                             <span className="link-text">LinkedIn</span>
                             <span className="link-decoration"></span>
                         </a>
-                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="social-link">
+                        <a href="https://github.com/deepuissacgigi" target="_blank" rel="noopener noreferrer" className="social-link">
                             <span className="link-text">GitHub</span>
                             <span className="link-decoration"></span>
                         </a>
-                        <a href="mailto:contact@deepu.dev" className="social-link">
+                        <a href="mailto:deepuissacgigi@gmail.com" className="social-link">
                             <span className="link-text">Email</span>
                             <span className="link-decoration"></span>
                         </a>
