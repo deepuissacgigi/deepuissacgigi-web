@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { MapPin, Briefcase, Code2, Sparkles, ChevronRight } from 'lucide-react';
+import { MapPin, Briefcase, Code2, User, ChevronRight } from 'lucide-react';
 import Button from '../ui/Button';
 import './About.scss';
 
@@ -58,7 +58,7 @@ const About = () => {
                 {/* Left Side - Main Content */}
                 <div className="about-main">
                     <div className="about-label">
-                        <Sparkles size={14} />
+                        <User size={18} />
                         About Me
                     </div>
 
