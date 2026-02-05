@@ -143,7 +143,9 @@ $text-muted: rgba(255, 255, 255, 0.5);
     letter-spacing: -2px;
     margin-bottom: 1.5rem;
     color: #fff;
-    animation: fadeUp 0.8s ease 0.1s both;
+    /* LCP Optimization: Faster animation, no delay */
+    animation: fadeUp 0.5s ease 0s both;
+    will-change: transform, opacity;
 }
 
 .hero__title--gradient {

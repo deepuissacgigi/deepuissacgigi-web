@@ -1,5 +1,6 @@
-import React from 'react';
-import ThreeBackground from '../components/ui/ThreeBackground';
+import React, { Suspense } from 'react';
+// Lazy load heavy 3D background
+const ThreeBackground = React.lazy(() => import('../components/ui/ThreeBackground'));
 import ExperienceTimeline from '../components/ui/ExperienceTimeline';
 import Projects from './Projects';
 import Contact from './Contact';
@@ -15,7 +16,9 @@ const Home = () => {
         <div className="home-page" style={{ position: 'relative', zIndex: 10 }}>
             <SeoHead {...SEO_DATA.home} />
             <ScrollProgress />
-            <ThreeBackground />
+            <Suspense fallback={null}>
+                <ThreeBackground />
+            </Suspense>
 
             {/* Hero Section */}
             <Hero />
