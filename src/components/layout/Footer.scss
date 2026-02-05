@@ -1,264 +1,166 @@
 /* =========================================
-   FOOTER - Modern Minimal Design
+   FOOTER V2 - Centered Minimal Design
    ========================================= */
 
 $accent: #646cff;
+$accent-glow: rgba(100, 108, 255, 0.4);
 $text-light: #ffffff;
 $text-muted: rgba(255, 255, 255, 0.5);
 
-.footer {
+.footer-v2 {
     position: relative;
     z-index: 10;
-    margin-top: 6rem;
+    padding: 6rem 2rem 3rem;
+    text-align: center;
+    background: linear-gradient(180deg,
+            transparent 0%,
+            rgba(0, 0, 0, 0.4) 30%,
+            rgba(0, 0, 0, 0.8) 100%);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
 
-    /* Main Footer */
-    &__main {
-        background: linear-gradient(180deg,
-                transparent 0%,
-                rgba(0, 0, 0, 0.3) 20%,
-                rgba(0, 0, 0, 0.6) 100%);
-        backdrop-filter: blur(20px);
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-        padding: 4rem 2rem;
-    }
+/* CTA Section */
+.footer-cta {
+    margin-bottom: 4rem;
 
-    &__container {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: 2fr 1fr 1fr auto;
-        gap: 4rem;
-        align-items: start;
-
-        @media (max-width: 900px) {
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-        }
-
-        @media (max-width: 600px) {
-            grid-template-columns: 1fr;
-            gap: 2.5rem;
-            text-align: center;
-        }
-    }
-
-    /* Logo & Brand */
-    &__brand {
-        @media (max-width: 600px) {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-    }
-
-    &__logo {
-        font-size: 2rem;
-        font-weight: 800;
+    &__title {
+        font-size: clamp(2rem, 6vw, 3.5rem);
+        font-weight: 700;
         color: $text-light;
-        cursor: pointer;
+        margin-bottom: 1rem;
         letter-spacing: -1px;
-        transition: color 0.3s;
 
         span {
-            color: $accent;
+            background: linear-gradient(135deg, $accent, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
+    }
+
+    &__subtitle {
+        font-size: 1.1rem;
+        color: $text-muted;
+        margin-bottom: 2rem;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    &__btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem 2rem;
+        background: $accent;
+        color: #fff;
+        border: none;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 0 0 $accent-glow;
 
         &:hover {
-            color: $accent;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px -10px $accent-glow;
+        }
+
+        svg {
+            transition: transform 0.3s;
+        }
+
+        &:hover svg {
+            transform: translate(3px, -3px);
         }
     }
+}
 
-    &__tagline {
-        margin-top: 1rem;
-        color: $text-muted;
-        font-size: 0.95rem;
-        line-height: 1.6;
-        max-width: 250px;
+/* Links Row */
+.footer-links {
+    margin-bottom: 2.5rem;
 
-        @media (max-width: 600px) {
-            max-width: none;
-        }
-    }
-
-    /* Sections */
-    &__section {
-        @media (max-width: 600px) {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-    }
-
-    &__heading {
-        font-size: 0.75rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.15em;
-        color: $text-muted;
-        margin-bottom: 1.25rem;
-    }
-
-    /* Navigation Links */
-    &__nav {
+    &__row {
         display: flex;
-        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
         gap: 0.75rem;
     }
 
-    &__link {
+    &__dot {
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 0.75rem;
+    }
+
+    button {
         background: none;
         border: none;
-        padding: 0;
-        color: $text-light;
+        color: $text-muted;
         font-size: 0.95rem;
+        padding: 0.5rem 0.75rem;
         cursor: pointer;
-        text-align: left;
-        transition: all 0.3s ease;
+        transition: color 0.3s;
         position: relative;
 
         &::after {
             content: '';
             position: absolute;
-            bottom: -2px;
-            left: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
             width: 0;
             height: 1px;
             background: $accent;
-            transition: width 0.3s ease;
+            transition: width 0.3s;
         }
 
         &:hover {
-            color: $accent;
+            color: $text-light;
 
             &::after {
-                width: 100%;
+                width: 80%;
             }
         }
-
-        @media (max-width: 600px) {
-            text-align: center;
-
-            &::after {
-                left: 50%;
-                transform: translateX(-50%);
-            }
-        }
-    }
-
-    /* Social Icons */
-    &__socials {
-        display: flex;
-        gap: 0.75rem;
-
-        @media (max-width: 600px) {
-            justify-content: center;
-        }
-    }
-
-    &__social {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 44px;
-        height: 44px;
-        border-radius: 12px;
-        background: rgba(255, 255, 255, 0.05);
-        color: $text-muted;
-        transition: all 0.3s ease;
-        border: 1px solid transparent;
-
-        &:hover {
-            background: rgba($accent, 0.1);
-            color: $accent;
-            border-color: rgba($accent, 0.3);
-            transform: translateY(-3px);
-        }
-    }
-
-    /* Scroll to Top Button */
-    &__scroll-top {
-        position: absolute;
-        right: 2rem;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        color: $text-muted;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-
-        &:hover {
-            background: $accent;
-            color: #fff;
-            border-color: $accent;
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        @media (max-width: 900px) {
-            position: relative;
-            right: auto;
-            top: auto;
-            transform: none;
-            margin: 0 auto;
-            grid-column: 1 / -1;
-
-            &:hover {
-                transform: scale(1.1);
-            }
-        }
-    }
-
-    /* Bottom Bar */
-    &__bottom {
-        background: rgba(0, 0, 0, 0.8);
-        padding: 1.5rem 2rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-
-        .footer__container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-
-            @media (max-width: 600px) {
-                flex-direction: column;
-            }
-        }
-    }
-
-    &__copyright {
-        color: $text-muted;
-        font-size: 0.85rem;
-    }
-
-    &__made-with {
-        display: flex;
-        align-items: center;
-        gap: 0.35rem;
-        color: $text-muted;
-        font-size: 0.85rem;
-    }
-
-    &__heart {
-        color: #ff6b6b;
-        animation: heartbeat 1.5s ease-in-out infinite;
     }
 }
 
-@keyframes heartbeat {
+/* Social Icons */
+.footer-socials {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
 
-    0%,
-    100% {
-        transform: scale(1);
+    a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: $text-muted;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background: rgba($accent, 0.15);
+            border-color: rgba($accent, 0.4);
+            color: $accent;
+            transform: translateY(-4px) scale(1.05);
+        }
     }
+}
 
-    50% {
-        transform: scale(1.2);
+/* Bottom */
+.footer-bottom {
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+    p {
+        color: rgba(255, 255, 255, 0.3);
+        font-size: 0.85rem;
     }
 }
