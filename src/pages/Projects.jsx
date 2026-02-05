@@ -86,8 +86,7 @@ const Projects = () => {
                     ref={headerRef}
                     className={`projects-header ${headerVisible ? 'animate-fade-in' : 'opacity-0'}`}
                 >
-                    <span className="section-label">Portfolio</span>
-                    <h2>Featured Work</h2>
+                    <h2>Projects and Works</h2>
                     <p className="section-subtitle">
                         A selection of projects showcasing my expertise in design, development, and innovation.
                     </p>
