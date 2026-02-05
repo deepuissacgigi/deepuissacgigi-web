@@ -1,106 +1,119 @@
 import React from 'react';
 import useIntersectionObserver from '../hooks/useIntersectionObserver';
-import { ExternalLink, Github, ArrowRight, Shield, Zap, Globe } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import SeoHead from '../components/SeoHead';
 import { SEO_DATA } from '../utils/seoData';
-// IMPORT THE NEW DEDICATED SCSS
 import './Projects.scss';
 
 /* 
    PROJECT DATA 
-   Simple, flat data structure for the Neon Grid.
+   Each project has a size: 'large', 'medium', or 'small' for the bento grid.
 */
 const projects = [
     {
         id: '01',
         title: 'Cloud Sentinel',
-        subtitle: 'Encrypted Search Architecture',
-        description: 'Advanced cryptographic system enabling secure, searchable data on untrusted cloud servers. Features trace-based authorization and real-time threat detection.',
+        description: 'Advanced cryptographic system enabling secure, searchable data on untrusted cloud servers with real-time threat detection.',
         category: 'Cybersecurity',
         image: '/assets/projects/cloud.png',
-        tech: ['React', 'Python', 'AWS']
+        tech: ['React', 'Python', 'AWS'],
+        size: 'large'
     },
     {
         id: '02',
         title: 'Nexus Home',
-        subtitle: 'IoT Environmental Control',
-        description: 'Android-based bridge for smart home ecosystems. Monitors ambient metrics and automates climate control using a custom Java-based sensor protocol.',
+        description: 'Android-based bridge for smart home ecosystems. Monitors ambient metrics and automates climate control.',
         category: 'IoT / Mobile',
         image: '/assets/projects/iot.png',
-        tech: ['Java', 'Android SDK', 'MQTT']
+        tech: ['Java', 'Android', 'MQTT'],
+        size: 'medium'
     },
     {
         id: '03',
         title: 'Cavli Portal',
-        subtitle: 'Enterprise Web Presence',
-        description: 'High-performance corporate portal built for scale. Implements server-side rendering for SEO and WebGL for interactive product visualizations.',
+        description: 'High-performance corporate portal with server-side rendering and WebGL product visualizations.',
         category: 'Enterprise',
         image: '/assets/projects/corporate.png',
-        tech: ['Next.js', 'WebGL', 'Node']
+        tech: ['Next.js', 'WebGL', 'Node'],
+        size: 'small'
+    },
+    {
+        id: '04',
+        title: 'Neural Analytics',
+        description: 'Machine learning dashboard for predictive business intelligence and automated reporting.',
+        category: 'AI / ML',
+        image: '/assets/projects/cloud.png',
+        tech: ['Python', 'TensorFlow', 'React'],
+        size: 'small'
     }
 ];
 
 const Projects = () => {
     const [headerRef, headerVisible] = useIntersectionObserver({ triggerOnce: true });
 
+    // Mouse tracking for hover glow effect
+    const handleMouseMove = (e, cardElement) => {
+        const rect = cardElement.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        cardElement.style.setProperty('--mouse-x', `${x}%`);
+        cardElement.style.setProperty('--mouse-y', `${y}%`);
+    };
+
     return (
-        <div id="projects" className="section-container" style={{ padding: '8rem 0' }}>
+        <section id="projects" className="projects-section">
             <SeoHead {...SEO_DATA.projects} />
             <div className="container">
                 {/* Header */}
-                <div ref={headerRef} className={`section-header ${headerVisible ? 'animate-fade-in' : 'opacity-0'}`} style={{ marginBottom: '4rem' }}>
-
-                    <h2
-                        className={`section-title ${headerVisible ? 'animate-glitch-reveal' : 'opacity-0'}`}
-                        data-text="Featured Operations"
-                    >
-                        Featured Operations
-                    </h2>
-                    <p className="section-description">
-                        Classified deployments and experimental architectures.
-
+                <div
+                    ref={headerRef}
+                    className={`projects-header ${headerVisible ? 'animate-fade-in' : 'opacity-0'}`}
+                >
+                    <span className="section-label">Portfolio</span>
+                    <h2>Featured Work</h2>
+                    <p className="section-subtitle">
+                        A selection of projects showcasing my expertise in design, development, and innovation.
                     </p>
                 </div>
 
-                {/* THE NEON GRID */}
-                <div className="neon-grid-container">
+                {/* Bento Grid */}
+                <div className="bento-grid">
                     {projects.map((project, index) => (
-                        <div key={project.id} className="neon-card" style={{ animationDelay: `${index * 0.15}s` }}>
-
-                            {/* Image Header */}
-                            <div className="card-image">
-                                <div className="overlay"></div>
-                                <div className="category-badge">{project.category}</div>
-                                <img src={project.image} alt={project.title} />
+                        <div
+                            key={project.id}
+                            className={`bento-card bento-card--${project.size}`}
+                            onMouseMove={(e) => handleMouseMove(e, e.currentTarget)}
+                            style={{ animationDelay: `${index * 0.1}s` }}
+                        >
+                            {/* Background Image */}
+                            <div className="card-visual">
+                                <img src={project.image} alt={project.title} loading="lazy" />
                             </div>
 
-                            {/* Content Body */}
-                            <div className="card-content">
-                                <h3 className="project-title">{project.title}</h3>
-                                <div className="project-subtitle">{project.subtitle}</div>
-                                <p className="project-desc">{project.description}</p>
+                            {/* Arrow Icon */}
+                            <div className="card-arrow">
+                                <ArrowUpRight />
+                            </div>
 
-                                {/* Footer Actions */}
-                                <div className="card-footer">
-                                    <div className="tech-stack">
-                                        {/* Decorative Tech Dots */}
-                                        <span className="active"></span>
-                                        <span className="blue"></span>
-                                        <span></span>
-                                    </div>
-                                    <a href="#" className="project-link">
-                                        View Details <ArrowRight size={18} />
-                                    </a>
+                            {/* Content */}
+                            <div className="card-content">
+                                <div className="card-meta">
+                                    <span className="card-number">{project.id}</span>
+                                    <span className="card-category">{project.category}</span>
+                                </div>
+                                <h3 className="card-title">{project.title}</h3>
+                                <p className="card-description">{project.description}</p>
+                                <div className="card-tech">
+                                    {project.tech.map((t) => (
+                                        <span key={t}>{t}</span>
+                                    ))}
                                 </div>
                             </div>
-
-                            {/* Neon Glow Bar */}
-                            <div className="neon-bar"></div>
                         </div>
                     ))}
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 
