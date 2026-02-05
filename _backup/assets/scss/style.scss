@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+
+
+$primary_font: "Montserrat", sans-serif;
+$secondary_font: "Roboto", sans-serif;
+$primary_colour: #17153B;
+$secondary_colour: #2E236C;
+$third_colour: #433D8B;
+$fourth_colour: #C8ACD6;
+$text_colour_white: white;
+$text_colour_black: black;
+
+
+// defaults
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: $primary_font;
+
+}
+
+h1 {
+    font: {
+        size: 50px;
+        family: $primary_font;
+        weight: 700;
+    }
+
+    padding: 0px 0px 10px 0px;
+
+}
+
+h2 {
+    font: {
+        size: 40px;
+        family: $primary_font;
+        weight: 600;
+    }
+
+    padding: 0px 0px 10px 0px;
+}
+
+h3 {
+    font: {
+        size: 30px;
+        family: $primary_font;
+        weight: 500;
+    }
+
+    padding: 0px 0px 10px 0px;
+}
+
+
+.nav_bar {
+    display: flex;
+    padding: 25px 15px;
+    justify-content: flex-end;
+    background-color: $third_colour;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    border-radius: 0px 0px 20px 20px;
+
+    &_inner {
+        border: red 1px solid;
+        width: 50px;
+        height: 20px;
+        padding: 10px;
+        text-align: center;
+        opacity: 1;
+
+    }
+
+    & a {
+        color: $text_colour_white;
+    }
+}
+
+.header_sec {
+    // width: 100%;
+    height: 100vh;
+
+    background: {
+        color: $primary_colour;
+    }
+
+    padding: 0% 8%;
+
+    display: flex;
+
+    &_outer {
+        // height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &_inner_left {
+        span {
+            font-weight: 500;
+        }
+
+        color: $text_colour_white;
+        padding: 20px;
+        max-width: 60%;
+        width: 100%;
+
+        h2 {
+
+
+            font: {
+                family: $primary_font;
+                weight: 300;
+                size: 20px;
+
+            }
+
+            color: rgb(197, 197, 197);
+            line-height: 30px;
+
+            span {
+                font-weight: 600;
+            }
+        }
+
+
+    }
+
+    &_inner_right {
+        color: $text_colour_white;
+        padding: 20px;
+        max-width: 40%;
+        width: 100%;
+        text-align: center;
+
+        .alias_image {
+            max-width: 30rem;
+            max-height: 30rem;
+            width: 100%;
+            height: 100%;
+            border-radius: 10%;
+        }
+    }
+}
+
+.regular_sec {
+    padding: 100px 8%;
+}

@@ -1,0 +1,202 @@
+/* Contact.scss */
+
+/* Main Grid Container */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    width: 100%;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .contact-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2rem !important;
+    }
+
+    /* Ensure panels take full width */
+    .contact-grid>div,
+    .contact-form {
+        width: 100% !important;
+    }
+
+    /* Adjust glass panel padding on mobile */
+    .glass-panel {
+        padding: 1.5rem !important;
+    }
+
+    /* Fix long text overflow (like email) */
+    .glass-panel p {
+        word-break: break-word;
+        /* Ensure long emails wrap */
+        font-size: 0.95rem !important;
+        /* Slightly smaller text */
+    }
+
+    /* Center the header text if not already */
+    .section-header {
+        text-align: center;
+        padding: 0 1rem;
+    }
+}
+
+// Professional Cinematic Button (Colored Version)
+.professional-send-btn {
+    position: relative;
+    background: linear-gradient(135deg, #646cff 0%, #535bf2 100%); // Default Colored Background
+    border: none;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+    box-shadow: 0 4px 15px rgba(100, 108, 255, 0.3); // Default shadow for depth
+
+    // The "Backdrop" (Shine Effect)
+    .btn-backdrop {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent); // Brighter shine
+        transform: translateX(-100%) skewX(-15deg);
+        transition: transform 0.6s ease;
+        z-index: 1;
+    }
+
+    // Content Wrapper
+    .btn-content {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        color: #fff; // Always white text
+        font-family: 'Inter', sans-serif;
+        font-weight: 600; // Slightly bolder
+        letter-spacing: 1px;
+        font-size: 0.95rem;
+        transition: all 0.4s ease;
+
+        // Animate content when it changes (React mounts new children)
+        &>* {
+            animation: contentSlideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+    }
+
+    // Hover State
+    &:hover:not(:disabled) {
+        transform: translateY(-2px); // Lift effect
+        box-shadow: 0 8px 25px rgba(100, 108, 255, 0.5); // Stronger glow
+        filter: brightness(1.1); // Brighten entire button
+
+        .btn-backdrop {
+            transform: translateX(100%) skewX(-15deg); // Shine passes through
+        }
+
+        .btn-content {
+            letter-spacing: 2px; // Subtle expansion
+
+            .icon-arrow {
+                transform: translateX(4px);
+            }
+        }
+    }
+
+    // Click/Active
+    &:active:not(:disabled) {
+        transform: translateY(0) scale(0.98);
+        filter: brightness(0.9);
+    }
+
+    // Loading State
+    &.loading {
+        cursor: wait;
+        border-color: rgba(255, 255, 255, 0.2);
+
+        .btn-content {
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+    }
+
+    // Success State - Solid green with white text
+    &.success,
+    &.success:not(:disabled) {
+        border-color: #10b981 !important;
+        background: #10b981 !important;
+        background-image: none !important; // Override gradient
+        background-color: #10b981 !important;
+        box-shadow: 0 4px 20px rgba(16, 185, 129, 0.5) !important;
+        filter: none !important;
+        cursor: default;
+
+        .btn-content {
+            color: #ffffff !important;
+            letter-spacing: 2px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        &:hover {
+            transform: none !important;
+            filter: none !important;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.5) !important;
+            background: #10b981 !important;
+            background-image: none !important;
+        }
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+}
+
+// Animations
+@keyframes dashBorder {
+    to {
+        stroke-dashoffset: -30;
+    }
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes contentSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

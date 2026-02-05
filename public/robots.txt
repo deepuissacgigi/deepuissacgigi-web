@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+Disallow: /*?query=
+
+Host: https://yourdomain.com
+Sitemap: https://yourdomain.com/sitemap.xml
