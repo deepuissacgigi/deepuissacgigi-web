@@ -7,6 +7,7 @@ import './index.scss';
 import { HelmetProvider } from 'react-helmet-async';
 import CustomCursor from './components/ui/CustomCursor';
 import LoadingScreen from './components/ui/LoadingScreen';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
             <Route path="*" element={<Home />} />
           </Routes>
         </Layout>
+        <SpeedInsights />
       </Router>
     </HelmetProvider>
   );
