@@ -3062,19 +3062,86 @@ a {
     display: none;
   }
 
-  /* Typography Adjustments */
-  .hero-section h1 {
-    font-size: 2.5rem !important;
+  /* Global Font Size Reduction */
+  body {
+    font-size: 14px;
   }
 
-  .section-title {
+  /* Typography Adjustments */
+  .hero-section h1 {
     font-size: 2rem !important;
   }
 
-  /* Projects Grid: Stack Vertically */
-  .projects-grid-neon {
-    grid-template-columns: 1fr !important;
+  .hero-subtitle {
+    font-size: 0.9rem !important;
+  }
+
+  .section-title {
+    font-size: 1.75rem !important;
+  }
+
+  h2 {
+    font-size: 1.5rem !important;
+  }
+
+  h3 {
+    font-size: 1.2rem !important;
+  }
+
+  p {
+    font-size: 0.9rem !important;
+    line-height: 1.6 !important;
+  }
+
+  /* Hero Section Mobile */
+  .hero-section {
+    padding: 3rem 0 !important;
+    min-height: auto !important;
+  }
+
+  .hero-content {
+    text-align: center;
+  }
+
+  .hero-actions {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    align-items: center !important;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  /* About Section Mobile - Critical Fix */
+  .about-section {
+    padding: 4rem 0 !important;
+  }
+
+  .about-section .glass-panel {
+    padding: 1.5rem !important;
+  }
+
+  /* Stack the About grid vertically */
+  .about-section .glass-panel>div {
+    display: flex !important;
+    flex-direction: column !important;
     gap: 2rem !important;
+  }
+
+  /* Tech Stack Pills */
+  .about-section .glass-panel span {
+    padding: 0.5rem 0.8rem !important;
+    font-size: 0.8rem !important;
+  }
+
+  /* Projects Grid: Stack Vertically */
+  .projects-grid-neon,
+  .neon-grid-container {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+    padding: 1rem !important;
   }
 
   /* Contact Section: Stack */
@@ -3084,11 +3151,32 @@ a {
 
   /* Adjust padding for mobile */
   .container {
-    padding: 0 1.5rem;
+    padding: 0 1rem;
   }
 
   section {
-    padding: 4rem 0 !important;
+    padding: 3rem 0 !important;
+  }
+
+  /* Experience Timeline Mobile */
+  .experience-timeline {
+    padding: 0 0.5rem !important;
+  }
+
+  .timeline-item {
+    padding: 1rem !important;
+  }
+
+  /* Buttons Mobile */
+  .btn {
+    padding: 0.75rem 1.25rem !important;
+    font-size: 0.85rem !important;
+  }
+
+  /* Glass Panels Mobile */
+  .glass-panel {
+    padding: 1.25rem !important;
+    border-radius: 12px !important;
   }
 }
 

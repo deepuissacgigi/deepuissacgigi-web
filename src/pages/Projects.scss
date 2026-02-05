@@ -208,3 +208,58 @@ $glass-border: rgba(255, 255, 255, 0.08);
         transition: width 0.4s ease, box-shadow 0.4s ease;
     }
 }
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .projects-section-neon {
+        padding: 4rem 0;
+    }
+
+    .neon-grid-container {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem;
+        padding: 0 0.5rem;
+    }
+
+    .neon-card {
+        height: auto;
+        min-height: 380px;
+
+        .card-image {
+            height: 180px;
+
+            .category-badge {
+                top: 1rem;
+                right: 1rem;
+                padding: 0.3rem 0.75rem;
+                font-size: 0.65rem;
+            }
+        }
+
+        .card-content {
+            padding: 1.25rem;
+
+            .project-title {
+                font-size: 1.3rem;
+            }
+
+            .project-subtitle {
+                font-size: 0.8rem;
+                margin-bottom: 1rem;
+            }
+
+            .project-desc {
+                font-size: 0.85rem;
+                -webkit-line-clamp: 2;
+            }
+        }
+
+        .card-footer {
+            margin-top: 1rem;
+
+            .project-link {
+                font-size: 0.8rem;
+            }
+        }
+    }
+}
