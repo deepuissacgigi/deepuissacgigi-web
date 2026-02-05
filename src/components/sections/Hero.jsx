@@ -105,12 +105,12 @@ const Hero = () => {
                         </a>
                     ))}
                 </div>
+            </div>
 
-                {/* Scroll Indicator */}
-                <div className="scroll-indicator" onClick={() => scrollToSection('about')}>
-                    <span>Scroll</span>
-                    <ChevronDown size={20} />
-                </div>
+            {/* Scroll Indicator - Outside container for bottom positioning */}
+            <div className="scroll-indicator" onClick={() => scrollToSection('about')}>
+                <span>Scroll</span>
+                <ChevronDown size={20} />
             </div>
         </section>
     );
