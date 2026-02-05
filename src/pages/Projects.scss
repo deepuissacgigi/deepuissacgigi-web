@@ -249,11 +249,9 @@ $text-muted: rgba(255, 255, 255, 0.5);
     }
 
     .tech-icon {
-        width: 14px;
-        height: 14px;
+        width: 16px;
+        height: 16px;
         object-fit: contain;
-        filter: brightness(0) invert(1);
-        opacity: 0.9;
     }
 }
 
