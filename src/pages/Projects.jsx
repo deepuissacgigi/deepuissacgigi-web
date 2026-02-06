@@ -1,6 +1,6 @@
 import React from 'react';
 import useIntersectionObserver from '../hooks/useIntersectionObserver';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, ExternalLink, Github } from 'lucide-react';
 import SeoHead from '../components/SeoHead';
 import { SEO_DATA } from '../utils/seoData';
 import './Projects.scss';
@@ -34,7 +34,9 @@ const projects = [
         category: 'Cybersecurity',
         image: '/assets/projects/cloud.png',
         tech: ['React', 'Python', 'AWS'],
-        size: 'large'
+        size: 'large',
+        demo: null,
+        github: 'https://github.com/deepuissacgigi'
     },
     {
         id: '02',
@@ -43,7 +45,9 @@ const projects = [
         category: 'IoT / Mobile',
         image: '/assets/projects/iot.png',
         tech: ['Java', 'Android', 'MQTT'],
-        size: 'medium'
+        size: 'medium',
+        demo: null,
+        github: 'https://github.com/deepuissacgigi'
     },
     {
         id: '03',
@@ -52,7 +56,9 @@ const projects = [
         category: 'Enterprise',
         image: '/assets/projects/corporate.png',
         tech: ['Next.js', 'WebGL', 'Node'],
-        size: 'small'
+        size: 'small',
+        demo: 'https://www.cavliwireless.com',
+        github: null
     },
     {
         id: '04',
@@ -61,7 +67,9 @@ const projects = [
         category: 'AI / ML',
         image: '/assets/projects/cloud.png',
         tech: ['Python', 'TensorFlow', 'React'],
-        size: 'small'
+        size: 'small',
+        demo: null,
+        github: 'https://github.com/deepuissacgigi'
     }
 ];
 
@@ -128,6 +136,22 @@ const Projects = () => {
                                             {t}
                                         </span>
                                     ))}
+                                </div>
+
+                                {/* Project Links */}
+                                <div className="card-links">
+                                    {project.demo && (
+                                        <a href={project.demo} target="_blank" rel="noopener noreferrer" className="card-link">
+                                            <ExternalLink size={16} />
+                                            <span>Live Demo</span>
+                                        </a>
+                                    )}
+                                    {project.github && (
+                                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="card-link">
+                                            <Github size={16} />
+                                            <span>GitHub</span>
+                                        </a>
+                                    )}
                                 </div>
                             </div>
                         </div>

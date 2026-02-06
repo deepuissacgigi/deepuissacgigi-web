@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import Home from './pages/Home';
+import NotFound from './pages/NotFound';
 import './index.scss';
 
 import { HelmetProvider } from 'react-helmet-async';
@@ -25,7 +26,7 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="*" element={<Home />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>
         <SpeedInsights />

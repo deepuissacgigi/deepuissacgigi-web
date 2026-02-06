@@ -1,0 +1,70 @@
+/* =========================================
+   404 NOT FOUND PAGE
+   ========================================= */
+
+$accent: #646cff;
+
+.not-found {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    background: linear-gradient(135deg,
+            rgba(0, 0, 0, 0.95) 0%,
+            rgba(20, 20, 40, 0.95) 100%);
+
+    &__content {
+        max-width: 500px;
+    }
+
+    &__code {
+        font-size: clamp(6rem, 20vw, 12rem);
+        font-weight: 800;
+        line-height: 1;
+        background: linear-gradient(135deg, $accent, #818cf8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1rem;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    &__title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 1rem;
+    }
+
+    &__description {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 2.5rem;
+    }
+
+    &__actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        a {
+            text-decoration: none;
+        }
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}

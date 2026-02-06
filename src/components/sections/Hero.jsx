@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Github, Linkedin, Mail, ChevronDown } from 'lucide-react';
+import { ArrowRight, Github, Linkedin, Mail, ChevronDown, Download } from 'lucide-react';
 import Button from '../ui/Button';
 import './Hero.scss';
 
@@ -42,7 +42,7 @@ const Hero = () => {
     };
 
     return (
-        <section className="hero">
+        <section id="hero" className="hero">
             {/* Background */}
             <div className="hero__background">
                 <div className="hero__orb hero__orb--1"></div>
@@ -53,10 +53,10 @@ const Hero = () => {
             {/* Content */}
             <div className="hero__content">
                 {/* Status Badge */}
-                {/* <div className="hero__badge">
+                <div className="hero__badge">
                     <span className="hero__badge-dot"></span>
                     Available for opportunities
-                </div> */}
+                </div>
 
                 {/* Name */}
                 <h1 className="hero__title">
@@ -89,6 +89,11 @@ const Hero = () => {
                     <Button variant="outline" onClick={() => scrollToSection('contact')}>
                         Let's Talk <ArrowRight size={18} />
                     </Button>
+                    <a href="/resume.pdf" download className="hero__resume-link">
+                        <Button variant="ghost">
+                            <Download size={18} /> Resume
+                        </Button>
+                    </a>
                 </div>
 
                 {/* Social Links */}

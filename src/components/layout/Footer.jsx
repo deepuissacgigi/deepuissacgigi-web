@@ -47,7 +47,6 @@ const Footer = () => {
                 {/* Center - Logo & Nav */}
                 <div className="footer-cyber__center">
                     <div className="cyber-logo">
-                        <Cpu className="cyber-logo__icon" size={24} />
                         <span className="cyber-logo__text">DG</span>
                     </div>
 
