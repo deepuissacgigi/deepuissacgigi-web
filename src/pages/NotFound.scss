@@ -1,20 +1,20 @@
 /* =========================================
-   404 NOT FOUND PAGE - Space Theme
+   404 NOT FOUND PAGE - Gargantua Theme
    ========================================= */
 
 $accent: #646cff;
 
 /* ============================================
-   STAR FIELD CANVAS
+   BLACK HOLE CANVAS
    ============================================ */
-.star-field {
+.black-hole-bg {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: 0;
-    pointer-events: none;
+    /* Canvas provides pure black bg */
 }
 
 /* ============================================
@@ -27,9 +27,7 @@ $accent: #646cff;
     justify-content: center;
     padding: 2rem;
     text-align: center;
-    background: radial-gradient(ellipse at center,
-            rgba(20, 20, 50, 1) 0%,
-            rgba(0, 0, 0, 1) 70%);
+    background: #000;
     position: relative;
     overflow: hidden;
 
@@ -40,11 +38,16 @@ $accent: #646cff;
         position: relative;
         z-index: 10;
         max-width: 600px;
+        /* Add backdrop for readability against bright black hole */
+        background: rgba(0, 0, 0, 0.4);
+        padding: 2rem;
+        border-radius: 1rem;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     /* ============================================
        GLITCH 404 TEXT
-       Uses existing .glitch class from index.scss
        ============================================ */
     &__code {
         font-size: clamp(8rem, 25vw, 15rem);
@@ -90,26 +93,11 @@ $accent: #646cff;
        DESCRIPTION
        ============================================ */
     &__description {
-        color: rgba(255, 255, 255, 0.6);
+        color: rgba(255, 255, 255, 0.8);
         font-size: 1.1rem;
-        line-height: 1.8;
+        line-height: 1.6;
         margin-bottom: 2rem;
         animation: fadeInUp 0.8s ease 0.4s both;
-    }
-
-    /* ============================================
-       FLOATING ASTRONAUT/ROCKET
-       ============================================ */
-    &__astronaut {
-        margin-bottom: 2.5rem;
-        animation: float 4s ease-in-out infinite, fadeInUp 0.8s ease 0.6s both;
-
-        svg {
-            width: 48px;
-            height: 48px;
-            color: rgba(255, 255, 255, 0.8);
-            filter: drop-shadow(0 0 10px rgba($accent, 0.5));
-        }
     }
 
     /* ============================================
@@ -131,22 +119,6 @@ $accent: #646cff;
 /* ============================================
    ANIMATIONS
    ============================================ */
-@keyframes float {
-
-    0%,
-    100% {
-        transform: translateY(0) rotate(0deg);
-    }
-
-    25% {
-        transform: translateY(-15px) rotate(5deg);
-    }
-
-    75% {
-        transform: translateY(-5px) rotate(-5deg);
-    }
-}
-
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -156,54 +128,5 @@ $accent: #646cff;
     to {
         opacity: 1;
         transform: translateY(0);
-    }
-}
-
-/* ============================================
-   SHOOTING STARS (Pseudo-elements)
-   ============================================ */
-.not-found::before,
-.not-found::after {
-    content: '';
-    position: absolute;
-    width: 2px;
-    height: 80px;
-    background: linear-gradient(to bottom,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, 0.8) 50%,
-            rgba(255, 255, 255, 0) 100%);
-    animation: shootingStar 3s linear infinite;
-    opacity: 0;
-}
-
-.not-found::before {
-    top: 10%;
-    left: 30%;
-    animation-delay: 0s;
-}
-
-.not-found::after {
-    top: 20%;
-    right: 20%;
-    animation-delay: 1.5s;
-}
-
-@keyframes shootingStar {
-    0% {
-        opacity: 0;
-        transform: translateY(-100px) translateX(-100px) rotate(-45deg);
-    }
-
-    10% {
-        opacity: 1;
-    }
-
-    30% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0;
-        transform: translateY(100vh) translateX(100px) rotate(-45deg);
     }
 }
