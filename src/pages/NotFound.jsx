@@ -192,8 +192,8 @@ const NotFound = () => {
 
                 {/* Icon */}
                 <div className="not-found__astronaut">
-                    <svg width="80" height="60" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ filter: 'drop-shadow(0 0 10px rgba(100, 108, 255, 0.5))' }}>
-                        <text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="22" fontWeight="900" fontFamily="sans-serif" style={{ letterSpacing: '1px' }}>
+                    <svg width="100" height="60" viewBox="0 0 80 40" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ filter: 'drop-shadow(0 0 15px rgba(100, 108, 255, 0.6))' }}>
+                        <text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="32" fontWeight="900" fontFamily="sans-serif" style={{ letterSpacing: '2px' }}>
                             DG.
                         </text>
                     </svg>

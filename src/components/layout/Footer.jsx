@@ -87,11 +87,10 @@ const Footer = () => {
                 {/* Center Logo & Navigation */}
                 <div className="footer-cyber__center">
                     <div className="cyber-logo">
-                        <svg width="50" height="34" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="26" fontWeight="900" fontFamily="sans-serif" style={{ letterSpacing: '2px', filter: 'drop-shadow(0 0 5px rgba(255,255,255,0.5))' }}>
+                        <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="30" fontWeight="900" fontFamily="sans-serif" style={{ letterSpacing: '2px', filter: 'drop-shadow(0 0 5px rgba(255,255,255,0.5))' }}>
                                 DG.
                             </text>
-                            <rect x="2" y="2" width="56" height="36" rx="4" stroke="var(--color-accent)" strokeWidth="2" opacity="0.8" className="logo-border" />
                         </svg>
                     </div>
 

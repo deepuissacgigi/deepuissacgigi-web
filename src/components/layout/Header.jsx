@@ -51,10 +51,9 @@ const Header = () => {
                 {/* Logo */}
                 <div className="logo" onClick={() => scrollToSection('home')} style={{ cursor: 'pointer' }}>
                     <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="22" fontWeight="900" fontFamily="sans-serif" style={{ letterSpacing: '1px' }}>
+                        <text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="28" fontWeight="900" fontFamily="sans-serif" style={{ letterSpacing: '1px' }}>
                             DG.
                         </text>
-                        <rect x="2" y="2" width="56" height="36" rx="4" stroke="var(--color-accent)" strokeWidth="2" opacity="0" className="logo-border" />
                     </svg>
                 </div>
 
