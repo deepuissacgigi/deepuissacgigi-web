@@ -71,12 +71,6 @@ const Hero = () => {
 
             {/* Content */}
             <div className="hero__content">
-                {/* Status Badge */}
-                <div className="hero__badge">
-                    <span className="hero__badge-dot"></span>
-                    Available for opportunities
-                </div>
-
                 {/* Name */}
                 <h1 className="hero__title">
                     Deepu Issac <span className="hero__title--gradient">Gigi</span>
@@ -132,6 +126,12 @@ const Hero = () => {
                             <social.icon size={20} />
                         </a>
                     ))}
+                </div>
+
+                {/* Status Badge */}
+                <div className="hero__badge">
+                    <span className="hero__badge-dot"></span>
+                    Available for opportunities
                 </div>
             </div>
 
