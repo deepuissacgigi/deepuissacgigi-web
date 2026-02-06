@@ -1,38 +1,54 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import '../../index.scss';
+/**
+ * Header.jsx - Site Navigation Header
+ * 
+ * Features:
+ * - Shrinks on scroll
+ * - Desktop navigation with smooth scroll
+ * - Mobile hamburger menu
+ * - Logo animation
+ */
 
+import React, { useState, useEffect } from 'react';
 
 const Header = () => {
-    const [isScrolled, setIsScrolled] = React.useState(false);
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    React.useEffect(() => {
+    // Track scroll position for header style change
+    useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 50) {
-                setIsScrolled(true);
-            } else {
-                setIsScrolled(false);
-            }
+            setIsScrolled(window.scrollY > 50);
         };
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    /**
+     * Smooth scroll to section and close mobile menu
+     */
     const scrollToSection = (id) => {
         const element = document.getElementById(id);
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
-            setIsMobileMenuOpen(false); // Close menu after navigation
+            setIsMobileMenuOpen(false);
         } else {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
 
+    // Navigation items
+    const navItems = [
+        { id: 'home', label: 'Home' },
+        { id: 'about', label: 'About' },
+        { id: 'projects', label: 'Projects' },
+        { id: 'contact', label: 'Contact' },
+    ];
+
     return (
         <header className={`site-header ${isScrolled ? 'scrolled' : ''}`}>
             <div className="container header-inner">
+                {/* Logo */}
                 <div className="logo" onClick={() => scrollToSection('home')} style={{ cursor: 'pointer' }}>
                     <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="22" fontWeight="900" fontFamily="sans-serif" style={{ letterSpacing: '1px' }}>
@@ -45,14 +61,17 @@ const Header = () => {
                 {/* Desktop Navigation */}
                 <nav className="main-nav">
                     <ul>
-                        <li><button onClick={() => scrollToSection('home')} className="nav-link">Home</button></li>
-                        <li><button onClick={() => scrollToSection('about')} className="nav-link">About</button></li>
-                        <li><button onClick={() => scrollToSection('projects')} className="nav-link">Projects</button></li>
-                        <li><button onClick={() => scrollToSection('contact')} className="nav-link">Contact</button></li>
+                        {navItems.map(item => (
+                            <li key={item.id}>
+                                <button onClick={() => scrollToSection(item.id)} className="nav-link">
+                                    {item.label}
+                                </button>
+                            </li>
+                        ))}
                     </ul>
                 </nav>
 
-                {/* Mobile Menu Button */}
+                {/* Mobile Menu Toggle */}
                 <button
                     className="mobile-menu-toggle"
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -62,14 +81,17 @@ const Header = () => {
                 </button>
             </div>
 
-            {/* Mobile Slide-out Menu */}
+            {/* Mobile Navigation Overlay */}
             <div className={`mobile-nav-overlay ${isMobileMenuOpen ? 'open' : ''}`}>
                 <nav className="mobile-nav">
                     <ul>
-                        <li><button onClick={() => scrollToSection('home')} className="mobile-nav-link">Home</button></li>
-                        <li><button onClick={() => scrollToSection('about')} className="mobile-nav-link">About</button></li>
-                        <li><button onClick={() => scrollToSection('projects')} className="mobile-nav-link">Projects</button></li>
-                        <li><button onClick={() => scrollToSection('contact')} className="mobile-nav-link">Contact</button></li>
+                        {navItems.map(item => (
+                            <li key={item.id}>
+                                <button onClick={() => scrollToSection(item.id)} className="mobile-nav-link">
+                                    {item.label}
+                                </button>
+                            </li>
+                        ))}
                     </ul>
                 </nav>
             </div>

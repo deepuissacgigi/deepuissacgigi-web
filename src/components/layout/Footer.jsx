@@ -1,29 +1,69 @@
+/**
+ * Footer.jsx - Site Footer with Terminal Design
+ * 
+ * Features:
+ * - Terminal-style status display
+ * - Live clock update
+ * - Navigation links
+ * - Social links
+ * - Version info
+ */
+
 import React, { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, Terminal, Cpu, Zap } from 'lucide-react';
+import { Github, Linkedin, Mail, Terminal, Zap } from 'lucide-react';
 import './Footer.scss';
 
+/* ============================================
+   HELPER FUNCTIONS
+   ============================================ */
+
+/**
+ * Format time in 24h format
+ */
+const formatTime = (date) => {
+    return date.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+    });
+};
+
+/* ============================================
+   FOOTER COMPONENT
+   ============================================ */
 const Footer = () => {
     const year = new Date().getFullYear();
     const [time, setTime] = useState(new Date());
 
+    // Update clock every second
     useEffect(() => {
         const timer = setInterval(() => setTime(new Date()), 1000);
         return () => clearInterval(timer);
     }, []);
 
+    /**
+     * Smooth scroll to section
+     */
     const scrollToSection = (id) => {
         const element = document.getElementById(id);
         if (element) element.scrollIntoView({ behavior: 'smooth' });
     };
 
-    const formatTime = (date) => {
-        return date.toLocaleTimeString('en-US', {
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: false
-        });
-    };
+    // Navigation items
+    const navItems = [
+        { id: 'hero', number: '01', label: 'Home' },
+        { id: 'about', number: '02', label: 'About' },
+        { id: 'projects', number: '03', label: 'Work' },
+        { id: 'contact', number: '04', label: 'Contact' },
+    ];
+
+    // Social links
+    const socials = [
+        { href: 'https://github.com/deepuissacgigi', icon: Github, label: 'GH' },
+        { href: 'https://linkedin.com/in/deepuissacgigi', icon: Linkedin, label: 'LI' },
+        { href: 'mailto:deepuissacgigi@gmail.com', icon: Mail, label: 'EM' },
+    ];
 
     return (
         <footer className="footer-cyber">
@@ -31,7 +71,7 @@ const Footer = () => {
             <div className="footer-cyber__border"></div>
 
             <div className="footer-cyber__container">
-                {/* Left - Terminal Style */}
+                {/* Terminal Status */}
                 <div className="footer-cyber__terminal">
                     <div className="terminal-header">
                         <Terminal size={14} />
@@ -44,51 +84,35 @@ const Footer = () => {
                     </div>
                 </div>
 
-                {/* Center - Logo & Nav */}
+                {/* Center Logo & Navigation */}
                 <div className="footer-cyber__center">
                     <div className="cyber-logo">
                         <span className="cyber-logo__text">DG</span>
                     </div>
 
                     <nav className="cyber-nav">
-                        <button onClick={() => scrollToSection('hero')}>
-                            <span className="nav-number">01</span>
-                            <span className="nav-text">Home</span>
-                        </button>
-                        <button onClick={() => scrollToSection('about')}>
-                            <span className="nav-number">02</span>
-                            <span className="nav-text">About</span>
-                        </button>
-                        <button onClick={() => scrollToSection('projects')}>
-                            <span className="nav-number">03</span>
-                            <span className="nav-text">Work</span>
-                        </button>
-                        <button onClick={() => scrollToSection('contact')}>
-                            <span className="nav-number">04</span>
-                            <span className="nav-text">Contact</span>
-                        </button>
+                        {navItems.map(item => (
+                            <button key={item.id} onClick={() => scrollToSection(item.id)}>
+                                <span className="nav-number">{item.number}</span>
+                                <span className="nav-text">{item.label}</span>
+                            </button>
+                        ))}
                     </nav>
                 </div>
 
-                {/* Right - Socials */}
+                {/* Social Links */}
                 <div className="footer-cyber__socials">
                     <div className="socials-header">
                         <Zap size={14} />
                         <span>connect</span>
                     </div>
                     <div className="socials-grid">
-                        <a href="https://github.com/deepuissacgigi" target="_blank" rel="noopener noreferrer">
-                            <Github size={20} />
-                            <span className="social-label">GH</span>
-                        </a>
-                        <a href="https://linkedin.com/in/deepuissacgigi" target="_blank" rel="noopener noreferrer">
-                            <Linkedin size={20} />
-                            <span className="social-label">LI</span>
-                        </a>
-                        <a href="mailto:deepuissacgigi@gmail.com">
-                            <Mail size={20} />
-                            <span className="social-label">EM</span>
-                        </a>
+                        {socials.map(social => (
+                            <a key={social.label} href={social.href} target="_blank" rel="noopener noreferrer">
+                                <social.icon size={20} />
+                                <span className="social-label">{social.label}</span>
+                            </a>
+                        ))}
                     </div>
                 </div>
             </div>

@@ -1,3 +1,12 @@
+/**
+ * Layout.jsx - Main Page Layout Wrapper
+ * 
+ * Provides consistent structure:
+ * - Header (navigation)
+ * - Main content area
+ * - Footer
+ */
+
 import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
