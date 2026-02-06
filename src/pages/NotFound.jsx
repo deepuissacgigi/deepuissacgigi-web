@@ -155,48 +155,49 @@ const FallingStarsBackground = () => {
                     a.y = -1800; // ~10s at speed 3
                 }
 
-                // Add Tail Particles (Fire)
+                // Add Tail Particles (Fire/Smoke)
                 // Spawn more particles if visible or close to visible
                 if (a.y > -200 && a.y < height + 200) {
-                    for (let i = 0; i < 7; i++) { // Increased density
-                        // Wider spawn cone for non-straight tail
-                        const angleVar = (Math.random() - 0.5) * 1.5;
-                        const speedVar = Math.random() * 2 + 1;
-                        // Spawn at back of asteroid
-                        const r = a.size * 0.5; // Spawn closer to core for dispersion
-                        const spawnAngle = a.angle + Math.PI + (Math.random() - 0.5) * 0.8;
+                    for (let i = 0; i < 10; i++) { // Higher density for voluminous tail
+                        // Wider cone for "fireball" effect
+                        const angleVar = (Math.random() - 0.5) * 0.8;
+                        const speedVar = Math.random() * 3 + 2;
+
+                        // Spawn at back of head
+                        const r = a.size * 0.4;
+                        const spawnAngle = a.angle + Math.PI + (Math.random() - 0.5) * 0.5;
 
                         a.tail.push({
                             x: a.x + Math.cos(spawnAngle) * r,
                             y: a.y + Math.sin(spawnAngle) * r,
-                            vx: Math.cos(a.angle + Math.PI + angleVar) * speedVar, // Initial velocity
+                            vx: Math.cos(a.angle + Math.PI + angleVar) * speedVar,
                             vy: Math.sin(a.angle + Math.PI + angleVar) * speedVar,
-                            drift: (Math.random() - 0.5) * 0.2, // Lateral turbulence
+                            drift: (Math.random() - 0.5) * 0.5, // More turbulence
                             life: 1.0,
-                            decay: Math.random() * 0.02 + 0.015, // Slower decay for longer tail
-                            size: Math.random() * 8 + 3,
+                            decay: Math.random() * 0.015 + 0.01, // Longer life
+                            size: Math.random() * 10 + 5, // Larger particles
                         });
                     }
                 }
 
                 // Update & Draw Tail
                 a.tail.forEach((p, index) => {
-                    p.x += p.vx + p.drift; // Add turbulence
+                    p.x += p.vx + p.drift;
                     p.y += p.vy + p.drift;
                     p.life -= p.decay;
-                    p.size *= 0.96;
+                    p.size *= 0.97;
 
                     if (p.life <= 0) {
                         a.tail.splice(index, 1);
                         return;
                     }
 
-                    // Fire Colors: White -> Yellow -> Orange -> Red -> Grey/Smoke
+                    // Intense Fire Output
                     let color;
-                    if (p.life > 0.8) color = `rgba(255, 255, 200, ${p.life})`;
-                    else if (p.life > 0.5) color = `rgba(255, ${Math.floor(p.life * 200)}, 0, ${p.life})`; // Yellow-Orange
-                    else if (p.life > 0.2) color = `rgba(${Math.floor(p.life * 255)}, 50, 0, ${p.life})`; // Reddish
-                    else color = `rgba(100, 100, 100, ${p.life})`; // Smoke
+                    if (p.life > 0.8) color = `rgba(255, 255, 255, ${p.life})`; // White hot
+                    else if (p.life > 0.6) color = `rgba(255, 255, 0, ${p.life * 0.8})`; // Yellow
+                    else if (p.life > 0.3) color = `rgba(255, 100, 0, ${p.life * 0.6})`; // Orange/Red
+                    else color = `rgba(100, 100, 100, ${p.life * 0.4})`; // Smoke
 
                     ctx.fillStyle = color;
                     ctx.beginPath();
@@ -204,32 +205,29 @@ const FallingStarsBackground = () => {
                     ctx.fill();
                 });
 
-                // Draw Asteroid Head
+                // Draw Meteor Head (Glowing Orb instead of Rock)
                 if (a.y > -100 && a.y < height + 100) {
                     ctx.save();
                     ctx.translate(a.x, a.y);
-                    ctx.rotate(a.rotation);
 
-                    // Flaming core glow
-                    ctx.shadowBlur = 20;
-                    ctx.shadowColor = '#ff5722';
+                    // Intense Glow
+                    const glow = ctx.createRadialGradient(0, 0, 0, 0, 0, a.size * 3);
+                    glow.addColorStop(0, 'rgba(255, 255, 255, 1)');
+                    glow.addColorStop(0.2, 'rgba(255, 200, 100, 0.8)');
+                    glow.addColorStop(0.5, 'rgba(255, 100, 50, 0.3)');
+                    glow.addColorStop(1, 'rgba(255, 0, 0, 0)');
 
-                    ctx.fillStyle = '#2d1b1b'; // Dark burned rock
-                    ctx.strokeStyle = '#ff9800'; // Hot edges
-                    ctx.lineWidth = 2;
-
+                    ctx.fillStyle = glow;
                     ctx.beginPath();
-                    const step = (Math.PI * 2) / a.vertices.length;
-                    a.vertices.forEach((r, i) => {
-                        const angle = i * step;
-                        const vx = Math.cos(angle) * a.size * r;
-                        const vy = Math.sin(angle) * a.size * r;
-                        if (i === 0) ctx.moveTo(vx, vy);
-                        else ctx.lineTo(vx, vy);
-                    });
-                    ctx.closePath();
+                    ctx.arc(0, 0, a.size * 3, 0, Math.PI * 2);
                     ctx.fill();
-                    ctx.stroke();
+
+                    // Solid Core
+                    ctx.fillStyle = '#fff';
+                    ctx.beginPath();
+                    ctx.arc(0, 0, a.size * 0.6, 0, Math.PI * 2);
+                    ctx.fill();
+
                     ctx.restore();
                 }
             });
