@@ -1,14 +1,18 @@
+/**
+ * Button.jsx - Reusable Button Component
+ * 
+ * Variants:
+ * - primary: Solid accent color
+ * - outline: Bordered with accent color
+ * - ghost: Transparent background
+ */
+
 import React from 'react';
-import '../../index.scss';
 
 const Button = ({ children, variant = 'primary', className = '', ...props }) => {
-
-  const variantClass = `btn-${variant}`;
-  const baseClass = "btn";
-
   return (
     <button
-      className={`${baseClass} ${variantClass} ${className} `}
+      className={`btn btn-${variant} ${className}`}
       {...props}
     >
       {children}

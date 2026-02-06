@@ -1,11 +1,24 @@
+/**
+ * Projects.jsx - Projects Portfolio Section
+ * 
+ * Features:
+ * - Bento grid layout (large/medium/small cards)
+ * - Tech stack icons from Devicons CDN
+ * - Mouse-follow glow effect
+ * - Demo and GitHub links
+ */
+
 import React from 'react';
+import { ArrowUpRight, ExternalLink, Github } from 'lucide-react';
 import useIntersectionObserver from '../hooks/useIntersectionObserver';
-import { ArrowUpRight } from 'lucide-react';
 import SeoHead from '../components/SeoHead';
 import { SEO_DATA } from '../utils/seoData';
 import './Projects.scss';
 
-/* Tech Icons Mapping - Using Devicons CDN */
+/* ============================================
+   TECH ICONS CONFIGURATION
+   Using Devicons CDN for technology logos
+   ============================================ */
 const techIcons = {
     'React': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
     'Python': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
@@ -22,10 +35,10 @@ const techIcons = {
     'Figma': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg',
 };
 
-/* 
-   PROJECT DATA 
-   Each project has a size: 'large', 'medium', or 'small' for the bento grid.
-*/
+/* ============================================
+   PROJECT DATA
+   Size: 'large' | 'medium' | 'small' for grid
+   ============================================ */
 const projects = [
     {
         id: '01',
@@ -34,7 +47,9 @@ const projects = [
         category: 'Cybersecurity',
         image: '/assets/projects/cloud.png',
         tech: ['React', 'Python', 'AWS'],
-        size: 'large'
+        size: 'large',
+        demo: null,
+        github: 'https://github.com/deepuissacgigi'
     },
     {
         id: '02',
@@ -43,7 +58,9 @@ const projects = [
         category: 'IoT / Mobile',
         image: '/assets/projects/iot.png',
         tech: ['Java', 'Android', 'MQTT'],
-        size: 'medium'
+        size: 'medium',
+        demo: null,
+        github: 'https://github.com/deepuissacgigi'
     },
     {
         id: '03',
@@ -52,7 +69,9 @@ const projects = [
         category: 'Enterprise',
         image: '/assets/projects/corporate.png',
         tech: ['Next.js', 'WebGL', 'Node'],
-        size: 'small'
+        size: 'small',
+        demo: 'https://www.cavliwireless.com',
+        github: null
     },
     {
         id: '04',
@@ -61,14 +80,21 @@ const projects = [
         category: 'AI / ML',
         image: '/assets/projects/cloud.png',
         tech: ['Python', 'TensorFlow', 'React'],
-        size: 'small'
+        size: 'small',
+        demo: null,
+        github: 'https://github.com/deepuissacgigi'
     }
 ];
 
+/* ============================================
+   PROJECTS COMPONENT
+   ============================================ */
 const Projects = () => {
     const [headerRef, headerVisible] = useIntersectionObserver({ triggerOnce: true });
 
-    // Mouse tracking for hover glow effect
+    /**
+     * Track mouse position for card glow effect
+     */
     const handleMouseMove = (e, cardElement) => {
         const rect = cardElement.getBoundingClientRect();
         const x = ((e.clientX - rect.left) / rect.width) * 100;
@@ -80,8 +106,9 @@ const Projects = () => {
     return (
         <section id="projects" className="projects-section">
             <SeoHead {...SEO_DATA.projects} />
+
             <div className="container">
-                {/* Header */}
+                {/* Section Header */}
                 <div
                     ref={headerRef}
                     className={`projects-header ${headerVisible ? 'animate-fade-in' : 'opacity-0'}`}
@@ -92,7 +119,7 @@ const Projects = () => {
                     </p>
                 </div>
 
-                {/* Bento Grid */}
+                {/* Bento Grid Layout */}
                 <div className="bento-grid">
                     {projects.map((project, index) => (
                         <div
@@ -106,19 +133,22 @@ const Projects = () => {
                                 <img src={project.image} alt={project.title} loading="lazy" />
                             </div>
 
-                            {/* Arrow Icon */}
+                            {/* Hover Arrow */}
                             <div className="card-arrow">
                                 <ArrowUpRight />
                             </div>
 
-                            {/* Content */}
+                            {/* Card Content */}
                             <div className="card-content">
                                 <div className="card-meta">
                                     <span className="card-number">{project.id}</span>
                                     <span className="card-category">{project.category}</span>
                                 </div>
+
                                 <h3 className="card-title">{project.title}</h3>
                                 <p className="card-description">{project.description}</p>
+
+                                {/* Tech Stack */}
                                 <div className="card-tech">
                                     {project.tech.map((t) => (
                                         <span key={t} className="tech-tag">
@@ -128,6 +158,22 @@ const Projects = () => {
                                             {t}
                                         </span>
                                     ))}
+                                </div>
+
+                                {/* Project Links */}
+                                <div className="card-links">
+                                    {project.demo && (
+                                        <a href={project.demo} target="_blank" rel="noopener noreferrer" className="card-link">
+                                            <ExternalLink size={16} />
+                                            <span>Live Demo</span>
+                                        </a>
+                                    )}
+                                    {project.github && (
+                                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="card-link">
+                                            <Github size={16} />
+                                            <span>GitHub</span>
+                                        </a>
+                                    )}
                                 </div>
                             </div>
                         </div>

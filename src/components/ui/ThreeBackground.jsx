@@ -1,6 +1,13 @@
-import React, { useRef, useMemo, useState } from 'react';
+import React, { useRef, useMemo, useEffect, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
+
+// Check if device is low-power (mobile/tablet)
+const isLowPowerDevice = () => {
+    return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ||
+        window.matchMedia('(max-width: 768px)').matches;
+};
+
 const generateStars = (count, radius) => {
     const points = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
@@ -15,22 +22,26 @@ const generateStars = (count, radius) => {
     return points;
 };
 
-const Stars = (props) => {
+const Stars = ({ particleCount }) => {
     const ref = useRef();
-    // Reduce count further to 2500 for deeper black look
-    const sphere = useMemo(() => generateStars(2500, 1.5), []);
+    const sphere = useMemo(() => generateStars(particleCount, 1.5), [particleCount]);
+    const frameCount = useRef(0);
 
     useFrame((state, delta) => {
         if (!ref.current) return;
 
-        // Ultra-slow rotation (barely moving)
+        // Limit to ~30fps for performance
+        frameCount.current++;
+        if (frameCount.current % 2 !== 0) return;
+
+        // Ultra-slow rotation
         ref.current.rotation.x -= delta / 150;
         ref.current.rotation.y -= delta / 200;
     });
 
     return (
         <group rotation={[0, 0, Math.PI / 4]}>
-            <Points ref={ref} positions={sphere} stride={3} frustumCulled={false} {...props}>
+            <Points ref={ref} positions={sphere} stride={3} frustumCulled={false}>
                 <PointMaterial
                     transparent
                     color="#ffffff"
@@ -45,19 +56,49 @@ const Stars = (props) => {
 };
 
 const ThreeBackground = () => {
+    const [shouldRender, setShouldRender] = useState(true);
+    const particleCount = isLowPowerDevice() ? 800 : 1500;
+
+    // Disable on reduced motion preference
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+        if (mediaQuery.matches) {
+            setShouldRender(false);
+        }
+    }, []);
+
+    if (!shouldRender) {
+        return <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, background: '#000000' }} />;
+    }
+
     return (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, pointerEvents: 'none', background: '#000000' }}>
             <Canvas
                 camera={{ position: [0, 0, 1] }}
-                dpr={[1, 2]}
-                gl={{ antialias: false, powerPreference: "high-performance" }}
-                onCreated={({ gl }) => gl.setClearColor('#000000')}
+                dpr={1} // Force 1x DPR for performance
+                gl={{
+                    antialias: false,
+                    powerPreference: "high-performance",
+                    alpha: false,
+                    stencil: false,
+                    depth: false
+                }}
+                frameloop="demand" // Only render when needed
+                onCreated={({ gl, invalidate }) => {
+                    gl.setClearColor('#000000');
+                    // Continuous slow animation
+                    const animate = () => {
+                        invalidate();
+                        requestAnimationFrame(animate);
+                    };
+                    // Throttle to 30fps
+                    setInterval(() => invalidate(), 33);
+                }}
             >
-                <Stars />
+                <Stars particleCount={particleCount} />
             </Canvas>
         </div>
     );
 };
-
 
 export default ThreeBackground;

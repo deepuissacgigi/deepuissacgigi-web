@@ -1,64 +1,132 @@
+/**
+ * Footer.jsx - Site Footer with Terminal Design
+ * 
+ * Features:
+ * - Terminal-style status display
+ * - Live clock update
+ * - Navigation links
+ * - Social links
+ * - Version info
+ */
 
+import React, { useState, useEffect } from 'react';
+import { Github, Linkedin, Mail, Terminal, Zap } from 'lucide-react';
+import './Footer.scss';
 
+/* ============================================
+   HELPER FUNCTIONS
+   ============================================ */
+
+/**
+ * Format time in 24h format
+ */
+const formatTime = (date) => {
+    return date.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+    });
+};
+
+/* ============================================
+   FOOTER COMPONENT
+   ============================================ */
 const Footer = () => {
     const year = new Date().getFullYear();
+    const [time, setTime] = useState(new Date());
 
+    // Update clock every second
+    useEffect(() => {
+        const timer = setInterval(() => setTime(new Date()), 1000);
+        return () => clearInterval(timer);
+    }, []);
+
+    /**
+     * Smooth scroll to section
+     */
     const scrollToSection = (id) => {
         const element = document.getElementById(id);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-        } else {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        if (element) element.scrollIntoView({ behavior: 'smooth' });
     };
 
+    // Navigation items
+    const navItems = [
+        { id: 'hero', number: '01', label: 'Home' },
+        { id: 'about', number: '02', label: 'About' },
+        { id: 'projects', number: '03', label: 'Work' },
+        { id: 'contact', number: '04', label: 'Contact' },
+    ];
+
+    // Social links
+    const socials = [
+        { href: 'https://github.com/deepuissacgigi', icon: Github, label: 'GH' },
+        { href: 'https://linkedin.com/in/deepuissacgigi', icon: Linkedin, label: 'LI' },
+        { href: 'mailto:deepuissacgigi@gmail.com', icon: Mail, label: 'EM' },
+    ];
+
     return (
-        <footer className="site-footer">
-            <div className="container footer-grid">
-                {/* Brand Column */}
-                <div className="footer-col brand-col">
-                    <div className="footer-logo" onClick={() => scrollToSection('home')}>
-                        <span className="logo-text">DG.</span>
+        <footer className="footer-cyber">
+            {/* Animated Top Border */}
+            <div className="footer-cyber__border"></div>
+
+            <div className="footer-cyber__container">
+                {/* Terminal Status */}
+                <div className="footer-cyber__terminal">
+                    <div className="terminal-header">
+                        <Terminal size={14} />
+                        <span>system.status</span>
                     </div>
-                    <p className="footer-tagline">
-                        Crafting digital experiences with precision and passion.
-                    </p>
+                    <div className="terminal-content">
+                        <p><span className="text-accent">&gt;</span> Location: <span className="text-glow">Germany</span></p>
+                        <p><span className="text-accent">&gt;</span> Status: <span className="text-success">Available</span></p>
+                        <p><span className="text-accent">&gt;</span> Time: <span className="text-glow">{formatTime(time)}</span></p>
+                    </div>
                 </div>
 
-                {/* Navigation Column */}
-                <div className="footer-col nav-col">
-                    <h4>Explore</h4>
-                    <ul className="footer-links">
-                        <li><button onClick={() => scrollToSection('home')}>Home</button></li>
-                        <li><button onClick={() => scrollToSection('about')}>About</button></li>
-                        <li><button onClick={() => scrollToSection('projects')}>Projects</button></li>
-                        <li><button onClick={() => scrollToSection('contact')}>Contact</button></li>
-                    </ul>
+                {/* Center Logo & Navigation */}
+                <div className="footer-cyber__center">
+                    <div className="cyber-logo">
+                        <span className="cyber-logo__text">DG</span>
+                    </div>
+
+                    <nav className="cyber-nav">
+                        {navItems.map(item => (
+                            <button key={item.id} onClick={() => scrollToSection(item.id)}>
+                                <span className="nav-number">{item.number}</span>
+                                <span className="nav-text">{item.label}</span>
+                            </button>
+                        ))}
+                    </nav>
                 </div>
 
-                {/* Social/Connect Column */}
-                <div className="footer-col social-col">
-                    <h4>Connect</h4>
-                    <div className="social-links">
-                        <a href="https://www.linkedin.com/in/deepuissacgigi/" target="_blank" rel="noopener noreferrer" className="social-link">
-                            <span className="link-text">LinkedIn</span>
-                            <span className="link-decoration"></span>
-                        </a>
-                        <a href="https://github.com/deepuissacgigi" target="_blank" rel="noopener noreferrer" className="social-link">
-                            <span className="link-text">GitHub</span>
-                            <span className="link-decoration"></span>
-                        </a>
-                        <a href="mailto:deepuissacgigi@gmail.com" className="social-link">
-                            <span className="link-text">Email</span>
-                            <span className="link-decoration"></span>
-                        </a>
+                {/* Social Links */}
+                <div className="footer-cyber__socials">
+                    <div className="socials-header">
+                        <Zap size={14} />
+                        <span>connect</span>
+                    </div>
+                    <div className="socials-grid">
+                        {socials.map(social => (
+                            <a key={social.label} href={social.href} target="_blank" rel="noopener noreferrer">
+                                <social.icon size={20} />
+                                <span className="social-label">{social.label}</span>
+                            </a>
+                        ))}
                     </div>
                 </div>
             </div>
 
-            <div className="footer-bottom">
-                <div className="container">
-                    <p>&copy; {year} Deepu Issac Gigi. All rights reserved.</p>
+            {/* Bottom Bar */}
+            <div className="footer-cyber__bottom">
+                <div className="bottom-left">
+                    <span className="version">v2.0.26</span>
+                </div>
+                <div className="bottom-center">
+                    <span>&copy; {year} DEEPU ISSAC GIGI</span>
+                </div>
+                <div className="bottom-right">
+                    <span className="coords">52.0°N 11.9°E</span>
                 </div>
             </div>
         </footer>
