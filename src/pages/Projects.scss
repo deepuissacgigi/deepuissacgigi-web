@@ -240,6 +240,7 @@ $text-muted: rgba(255, 255, 255, 0.5);
         color: rgba(255, 255, 255, 0.85);
         font-weight: 500;
         backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
         transition: all 0.2s ease;
 
         &:hover {
@@ -309,6 +310,7 @@ $text-muted: rgba(255, 255, 255, 0.5);
     justify-content: center;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 12px;
     color: #fff;
     opacity: 0.6;
