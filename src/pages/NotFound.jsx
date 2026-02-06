@@ -53,10 +53,10 @@ const FallingStarsBackground = () => {
         function createMeteor() {
             return {
                 x: Math.random() * width * 1.5 - width * 0.2, // Start wide to cover angles
-                y: -(Math.random() * height), // Start above
+                y: -(Math.random() * height * 3), // Start much higher for delay
                 size: Math.random() * 2 + 1,
-                speed: Math.random() * 5 + 10,
-                length: Math.random() * 100 + 50,
+                speed: Math.random() * 1.5 + 2, // Slower, smoother speed (2-3.5)
+                length: Math.random() * 80 + 20, // Slightly shorter trails for slower speed
                 angle: Math.PI / 4 // 45 degrees
             };
         }
@@ -93,11 +93,11 @@ const FallingStarsBackground = () => {
                 m.x -= m.speed * Math.cos(m.angle); // Move Left
                 m.y += m.speed * Math.sin(m.angle); // Move Down
 
-                // Respawn
+                // Respawn with delay
                 if (m.y > height + 100 || m.x < -100) {
                     m.x = width + Math.random() * width * 0.5;
-                    m.y = -(Math.random() * height * 0.5);
-                    m.speed = Math.random() * 5 + 10;
+                    m.y = -(Math.random() * height * 3); // Reset high up for delay
+                    m.speed = Math.random() * 1.5 + 2;
                 }
 
                 // Draw Trail
