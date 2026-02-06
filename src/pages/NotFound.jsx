@@ -158,10 +158,9 @@ const NotFound = () => {
                 </div>
 
                 {/* Message */}
-                <h1 className="not-found__title">Stardust & Echoes</h1>
+                <h1 className="not-found__title">Page Not Found</h1>
                 <p className="not-found__description">
-                    The page you requested is just a fleeting shooting star.
-                    <br />Make a wish, or return to the galaxy you know.
+                    The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
                 </p>
 
                 {/* Icon */}
@@ -174,12 +173,12 @@ const NotFound = () => {
                     <Link to="/">
                         <Button variant="primary">
                             <Home size={18} />
-                            Back to Earth
+                            Back to Home
                         </Button>
                     </Link>
                     <Button variant="outline" onClick={() => window.history.back()}>
                         <ArrowLeft size={18} />
-                        Retry Launch
+                        Go Back
                     </Button>
                 </div>
             </div>
