@@ -51,25 +51,36 @@ const FallingStarsBackground = () => {
         }
 
         function createMeteor() {
-            // Smart Randomization
-            // 1. Varied Speed: Some slow drifters, some fast shooters
-            const speed = Math.random() * 2 + 1.0; // range 1.0 - 3.0 (Slower)
+            // "Smart" Physics Configuration:
 
-            // 2. Correlated Length: Faster meteors should have longer trails visually
-            // Base length + speed multiplier + noise
-            const length = (speed * 25) + (Math.random() * 30);
+            // 1. Speed Distribution (Weighted towards medium-slow)
+            // Using a power curve to favor slower drifting meteors but allow occasional fast ones
+            // random^2 pushes values lower. 
+            const baseSpeed = Math.pow(Math.random(), 2) * 3 + 0.5; // (0.5 to 3.5)
 
-            // 3. Depth simulation: Smaller = further back = slightly slower (parallax feels)
-            const size = Math.random() * 1.5 + 0.5;
-            const parallaxSpeed = speed * (size / 2); // Slower if smaller
+            // 2. Length Logic (Physics-based)
+            // Faster objects streak longer. 
+            // Length = Speed * ExposureTime (Constant) + Variance
+            const length = baseSpeed * (30 + Math.random() * 20);
+
+            // 3. Opacity (Atmospheric effect)
+            // Smaller/Slower meteors are dimmer (further away or less energy)
+            const opacity = Math.min(1, baseSpeed * 0.3 + 0.1 + Math.random() * 0.2);
+
+            // 4. Thickness
+            // Faster ones look thinner due to motion stretch illusion? 
+            // Actually, bigger ones should be brighter and maybe faster if closer.
+            // Let's correlate size to brightness/speed for "depth"
+            const size = (Math.random() * 0.5) + (baseSpeed * 0.4);
 
             return {
-                x: Math.random() * width * 1.5 - width * 0.2,
-                y: -(Math.random() * height * 3), // Initial delay
+                x: Math.random() * width * 1.5 - width * 0.2, // Wide spawn
+                y: -(Math.random() * height * 3),
                 size: size,
-                speed: parallaxSpeed,
+                speed: baseSpeed,
                 length: length,
-                angle: Math.PI / 4
+                angle: Math.PI / 4,
+                opacity: opacity
             };
         }
 
@@ -121,9 +132,10 @@ const FallingStarsBackground = () => {
                 const gradient = ctx.createLinearGradient(
                     m.x, m.y, m.x + m.length * Math.cos(m.angle), m.y - m.length * Math.sin(m.angle)
                 );
-                // Whiter head, blue-ish tail fade
-                gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-                gradient.addColorStop(0.2, 'rgba(200, 220, 255, 0.8)');
+                // Smart Gradient: Head is full brightness (relative to meteor opacity)
+                // Tail fades out proportional to speed/energy
+                gradient.addColorStop(0, `rgba(255, 255, 255, ${m.opacity})`);
+                gradient.addColorStop(0.3, `rgba(200, 220, 255, ${m.opacity * 0.6})`);
                 gradient.addColorStop(1, 'rgba(100, 108, 255, 0)');
 
                 ctx.strokeStyle = gradient;
@@ -133,11 +145,13 @@ const FallingStarsBackground = () => {
                 ctx.lineTo(m.x + m.length * Math.cos(m.angle), m.y - m.length * Math.sin(m.angle));
                 ctx.stroke();
 
-                // Head glow
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                ctx.beginPath();
-                ctx.arc(m.x, m.y, m.size * 1.5, 0, Math.PI * 2);
-                ctx.fill();
+                // Head glow (only if bright enough)
+                if (m.opacity > 0.5) {
+                    ctx.fillStyle = `rgba(255, 255, 255, ${m.opacity})`;
+                    ctx.beginPath();
+                    ctx.arc(m.x, m.y, m.size * 1.2, 0, Math.PI * 2);
+                    ctx.fill();
+                }
             });
 
             animationId = requestAnimationFrame(animate);
