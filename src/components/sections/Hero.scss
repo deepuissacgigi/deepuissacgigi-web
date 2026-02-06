@@ -314,28 +314,9 @@ $text-muted: rgba(255, 255, 255, 0.5);
             inset 0 2px 4px rgba(0, 0, 0, 0.2);
 
         svg {
-            animation: downloadBounce 0.4s ease;
+            transform: translateY(6px);
+            opacity: 0.7;
         }
-    }
-}
-
-@keyframes downloadBounce {
-
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    25% {
-        transform: translateY(4px);
-    }
-
-    50% {
-        transform: translateY(2px);
-    }
-
-    75% {
-        transform: translateY(4px);
     }
 }
 
