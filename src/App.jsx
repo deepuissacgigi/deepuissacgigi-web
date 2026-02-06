@@ -33,7 +33,9 @@ import './index.scss';
    MAIN APP COMPONENT
    ============================================ */
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  // Only show loader if we are on the home page ("/")
+  // This prevents the loader from appearing on 404 pages
+  const [isLoading, setIsLoading] = useState(window.location.pathname === '/');
 
   // Show loading screen on initial load
   if (isLoading) {

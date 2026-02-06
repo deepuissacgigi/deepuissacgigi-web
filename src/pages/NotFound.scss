@@ -113,6 +113,36 @@ $accent: #646cff;
             text-decoration: none;
         }
     }
+
+    /* ============================================
+       RESPONSIVE DESIGN
+       ============================================ */
+    @media (max-width: 768px) {
+        padding: 1rem;
+
+        &__content {
+            padding: 1.5rem;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            /* Softer border on mobile */
+        }
+
+        &__code {
+            font-size: 6rem;
+            /* Fallback/smaller size for mobile */
+            font-size: clamp(6rem, 20vw, 10rem);
+            margin-bottom: 0.5rem;
+        }
+
+        &__title {
+            font-size: 1.5rem;
+        }
+
+        &__description {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+    }
 }
 
 /* ============================================
