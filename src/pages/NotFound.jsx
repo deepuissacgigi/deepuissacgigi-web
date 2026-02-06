@@ -53,7 +53,7 @@ const FallingStarsBackground = () => {
         function createMeteor() {
             // Smart Randomization
             // 1. Varied Speed: Some slow drifters, some fast shooters
-            const speed = Math.random() * 2 + 1.5; // range 1.5 - 3.5
+            const speed = Math.random() * 2 + 1.0; // range 1.0 - 3.0 (Slower)
 
             // 2. Correlated Length: Faster meteors should have longer trails visually
             // Base length + speed multiplier + noise
@@ -77,7 +77,12 @@ const FallingStarsBackground = () => {
             stars.length = 0;
             meteors.length = 0;
             for (let i = 0; i < numStars; i++) stars.push(createStar());
-            for (let i = 0; i < numMeteors; i++) meteors.push(createMeteor());
+            for (let i = 0; i < numMeteors; i++) {
+                const m = createMeteor();
+                // Override Y for immediate visibility on load (spread across screen)
+                m.y = Math.random() * height * 1.2 - height * 0.2;
+                meteors.push(m);
+            }
         };
         initStars();
 
