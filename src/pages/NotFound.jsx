@@ -40,7 +40,7 @@ const FallingStarsBackground = () => {
         const meteors = [];
         const numMeteors = 10;
         const asteroids = [];
-        const numAsteroids = 3; // Increased from 1 to 3 for visibility
+        const numAsteroids = 1; // Exactly one per 10s
 
         function createStar() {
             return {
@@ -54,33 +54,36 @@ const FallingStarsBackground = () => {
 
         function createMeteor() {
             return {
-                x: Math.random() * width * 1.5 - width * 0.2, // Start wide to cover angles
-                y: -(Math.random() * height * 3), // Start much higher for delay
+                x: Math.random() * width * 1.5 - width * 0.2,
+                y: -(Math.random() * height * 3),
                 size: Math.random() * 2 + 1,
-                speed: Math.random() * 1.5 + 2, // Slower, smoother speed (2-3.5)
-                length: Math.random() * 80 + 20, // Slightly shorter trails for slower speed
-                angle: Math.PI / 4 // 45 degrees
+                speed: Math.random() * 1.5 + 2,
+                length: Math.random() * 80 + 20,
+                angle: Math.PI / 4
             };
         }
 
         function createAsteroid() {
             // Create jagged shape
             const vertices = [];
-            const numPoints = 8 + Math.floor(Math.random() * 6);
-            for (let i = 0; i < numPoints; i++) {
-                // Variation from circle
-                vertices.push(0.8 + Math.random() * 0.4);
-            }
+            const numPoints = 6 + Math.floor(Math.random() * 4);
+            for (let i = 0; i < numPoints; i++) vertices.push(0.7 + Math.random() * 0.3);
+
+            // Speed logic for 10s loop
+            // Avg screen diagonal ~1500px. Speed 3px/frame = 500 frames = ~8s travel.
+            // Need gap. 
+            const speed = 3;
 
             return {
-                x: Math.random() * width,
-                y: -(Math.random() * height * 2), // Start closer (was *5 + height)
-                size: Math.random() * 20 + 15, // Slightly larger
-                speed: Math.random() * 0.8 + 0.5, // Slightly faster
-                angle: Math.PI / 3, // Streep angle
-                rotation: Math.random() * Math.PI,
-                rotSpeed: (Math.random() - 0.5) * 0.03,
-                vertices: vertices
+                x: Math.random() * width * 0.8,
+                y: -2000, // Initial delay
+                size: 25,
+                speed: speed,
+                angle: Math.PI / 3, // Steep angle
+                rotation: 0,
+                rotSpeed: 0.02,
+                vertices: vertices,
+                tail: [] // Particle system for fire
             };
         }
 
@@ -95,16 +98,14 @@ const FallingStarsBackground = () => {
         initStars();
 
         const animate = () => {
-            // Clear with semi-fade for motion blur on meteors? 
-            // Better clear fully for crisp stars, handle trails manually
-            ctx.fillStyle = '#050510'; // Deep space blue/black
+            // Clear
+            ctx.fillStyle = '#050510';
             ctx.fillRect(0, 0, width, height);
 
             // 1. Draw Static Stars
             stars.forEach(s => {
                 s.opacity += s.twinkleSpeed;
                 if (s.opacity > 1 || s.opacity < 0.2) s.twinkleSpeed = -s.twinkleSpeed;
-
                 ctx.fillStyle = `rgba(255, 255, 255, ${s.opacity})`;
                 ctx.beginPath();
                 ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
@@ -114,85 +115,123 @@ const FallingStarsBackground = () => {
             // 2. Draw Falling Meteors
             ctx.lineCap = 'round';
             meteors.forEach(m => {
-                // Update position
-                m.x -= m.speed * Math.cos(m.angle); // Move Left
-                m.y += m.speed * Math.sin(m.angle); // Move Down
-
-                // Respawn with delay
+                m.x -= m.speed * Math.cos(m.angle);
+                m.y += m.speed * Math.sin(m.angle);
                 if (m.y > height + 100 || m.x < -100) {
                     m.x = width + Math.random() * width * 0.5;
-                    m.y = -(Math.random() * height * 3); // Reset high up for delay
+                    m.y = -(Math.random() * height * 3);
                     m.speed = Math.random() * 1.5 + 2;
                 }
-
-                // Draw Trail
                 const gradient = ctx.createLinearGradient(
-                    m.x, m.y,
-                    m.x + m.length * Math.cos(m.angle),
-                    m.y - m.length * Math.sin(m.angle)
+                    m.x, m.y, m.x + m.length * Math.cos(m.angle), m.y - m.length * Math.sin(m.angle)
                 );
                 gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-                gradient.addColorStop(0.1, 'rgba(100, 108, 255, 0.8)');
                 gradient.addColorStop(1, 'rgba(100, 108, 255, 0)');
-
                 ctx.strokeStyle = gradient;
                 ctx.lineWidth = m.size;
                 ctx.beginPath();
                 ctx.moveTo(m.x, m.y);
-                ctx.lineTo(
-                    m.x + m.length * Math.cos(m.angle),
-                    m.y - m.length * Math.sin(m.angle)
-                );
+                ctx.lineTo(m.x + m.length * Math.cos(m.angle), m.y - m.length * Math.sin(m.angle));
                 ctx.stroke();
-
-                // Head glow
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-                ctx.beginPath();
-                ctx.arc(m.x, m.y, m.size * 1.5, 0, Math.PI * 2);
-                ctx.fill();
             });
 
-            // 3. Draw Asteroids (Rare)
+            // 3. Draw Fiery Asteroid
             asteroids.forEach(a => {
+                // Determine screen presence (if far off screen, simple update)
+                // If y < -300, it's waiting in delay. 
+
                 a.x -= a.speed * Math.cos(a.angle);
                 a.y += a.speed * Math.sin(a.angle);
                 a.rotation += a.rotSpeed;
 
-                // Reset more frequently
-                if (a.y > height + 100 || a.x < -100) {
-                    a.x = width + Math.random() * width * 0.5;
-                    a.y = -(Math.random() * height * 2); // Shorter delay (was *8)
-                    a.speed = Math.random() * 0.8 + 0.5;
+                // Reset logic (~10s approx)
+                // Distance to respawn: travel time + delay.
+                // Speed 3 -> 180px/sec. 10s = 1800px travel.
+                if (a.y > height + 200 || a.x < -200) {
+                    a.x = width * 0.5 + Math.random() * width * 0.5;
+                    // To ensure ~10s interval:
+                    // Reset to a position that takes 10s to reach 'visible' area again? 
+                    // Or just add distance. 
+                    a.y = -1800; // ~10s at speed 3
                 }
 
-                ctx.save();
-                ctx.translate(a.x, a.y);
-                ctx.rotate(a.rotation);
+                // Add Tail Particles (Fire)
+                // Spawn more particles if visible or close to visible
+                if (a.y > -200 && a.y < height + 200) {
+                    for (let i = 0; i < 5; i++) { // Fire density
+                        const angleVar = (Math.random() - 0.5) * 0.5;
+                        const speedVar = Math.random() * 2 + 1;
+                        // Spawn at back of asteroid
+                        const r = a.size * 0.8;
+                        // Opposite to movement angle
+                        const spawnAngle = a.angle + Math.PI + (Math.random() - 0.5);
 
-                ctx.fillStyle = '#2a2a35'; // Dark rocky color
-                ctx.strokeStyle = '#3a3a45'; // Lighter edge
-                ctx.lineWidth = 2;
+                        a.tail.push({
+                            x: a.x + Math.cos(spawnAngle) * r,
+                            y: a.y + Math.sin(spawnAngle) * r,
+                            vx: Math.cos(a.angle + Math.PI + angleVar) * speedVar, // Move back
+                            vy: Math.sin(a.angle + Math.PI + angleVar) * speedVar,
+                            life: 1.0,
+                            decay: Math.random() * 0.03 + 0.02,
+                            size: Math.random() * 6 + 2,
+                            colorType: Math.random() // for gradient logic
+                        });
+                    }
+                }
 
-                ctx.beginPath();
-                const step = (Math.PI * 2) / a.vertices.length;
-                a.vertices.forEach((r, i) => {
-                    const angle = i * step;
-                    const vx = Math.cos(angle) * a.size * r;
-                    const vy = Math.sin(angle) * a.size * r;
-                    if (i === 0) ctx.moveTo(vx, vy);
-                    else ctx.lineTo(vx, vy);
+                // Update & Draw Tail
+                a.tail.forEach((p, index) => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.life -= p.decay;
+                    p.size *= 0.95; // Shrink
+
+                    if (p.life <= 0) {
+                        a.tail.splice(index, 1);
+                        return;
+                    }
+
+                    // Fire Colors: White -> Yellow -> Orange -> Red -> Grey/Smoke
+                    let color;
+                    if (p.life > 0.8) color = `rgba(255, 255, 200, ${p.life})`;
+                    else if (p.life > 0.5) color = `rgba(255, ${Math.floor(p.life * 200)}, 0, ${p.life})`; // Yellow-Orange
+                    else if (p.life > 0.2) color = `rgba(${Math.floor(p.life * 255)}, 50, 0, ${p.life})`; // Reddish
+                    else color = `rgba(100, 100, 100, ${p.life})`; // Smoke
+
+                    ctx.fillStyle = color;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
                 });
-                ctx.closePath();
-                ctx.fill();
-                ctx.stroke();
 
-                // Crater/Shadow detail (simple)
-                ctx.fillStyle = 'rgba(0,0,0,0.3)';
-                ctx.beginPath();
-                ctx.arc(a.size * 0.3, a.size * 0.3, a.size * 0.2, 0, Math.PI * 2);
-                ctx.fill();
+                // Draw Asteroid Head
+                if (a.y > -100 && a.y < height + 100) {
+                    ctx.save();
+                    ctx.translate(a.x, a.y);
+                    ctx.rotate(a.rotation);
 
-                ctx.restore();
+                    // Flaming core glow
+                    ctx.shadowBlur = 20;
+                    ctx.shadowColor = '#ff5722';
+
+                    ctx.fillStyle = '#2d1b1b'; // Dark burned rock
+                    ctx.strokeStyle = '#ff9800'; // Hot edges
+                    ctx.lineWidth = 2;
+
+                    ctx.beginPath();
+                    const step = (Math.PI * 2) / a.vertices.length;
+                    a.vertices.forEach((r, i) => {
+                        const angle = i * step;
+                        const vx = Math.cos(angle) * a.size * r;
+                        const vy = Math.sin(angle) * a.size * r;
+                        if (i === 0) ctx.moveTo(vx, vy);
+                        else ctx.lineTo(vx, vy);
+                    });
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.stroke();
+                    ctx.restore();
+                }
             });
 
             animationId = requestAnimationFrame(animate);
