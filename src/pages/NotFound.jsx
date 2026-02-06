@@ -2,21 +2,21 @@
  * NotFound.jsx - 404 Error Page
  * 
  * Features:
- * - Digital Rain Animation (Matrix-inspired but Cyber-Blue)
+ * - Falling Stars / Meteor Shower Animation
  * - Glitch text
- * - System Failure theme
+ * - Cosmic theme
  */
 
 import React, { useEffect, useRef } from 'react';
-import { Home, ArrowLeft, Terminal } from 'lucide-react';
+import { Home, ArrowLeft, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Button from '../components/ui/Button';
 import './NotFound.scss';
 
 /* ============================================
-   DIGITAL RAIN ANIMATION
+   FALLING STARS ANIMATION
    ============================================ */
-const DigitalRainBackground = () => {
+const FallingStarsBackground = () => {
     const canvasRef = useRef(null);
 
     useEffect(() => {
@@ -24,61 +24,108 @@ const DigitalRainBackground = () => {
         const ctx = canvas.getContext('2d');
         let animationId;
 
-        // Setup
         let width = canvas.width = window.innerWidth;
         let height = canvas.height = window.innerHeight;
 
         const resize = () => {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
-            // Reset columns on resize
-            initColumns();
+            initStars();
         };
         window.addEventListener('resize', resize);
 
         // Configuration
-        const fontSize = 16;
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$#@%&<>[]{}';
-        const colors = ['#646cff', '#818cf8', '#a78bfa', '#fff']; // Site colors
+        const stars = [];
+        const numStars = 150;
+        const meteors = [];
+        const numMeteors = 10;
 
-        let columns;
-        let drops = []; // Y position of each drop
+        function createStar() {
+            return {
+                x: Math.random() * width,
+                y: Math.random() * height,
+                size: Math.random() * 1.5,
+                opacity: Math.random(),
+                twinkleSpeed: Math.random() * 0.02 + 0.005
+            };
+        }
 
-        const initColumns = () => {
-            columns = Math.floor(width / fontSize);
-            drops = [];
-            for (let i = 0; i < columns; i++) {
-                drops[i] = Math.random() * -100; // Start above screen randomly
-            }
+        function createMeteor() {
+            return {
+                x: Math.random() * width * 1.5 - width * 0.2, // Start wide to cover angles
+                y: -(Math.random() * height), // Start above
+                size: Math.random() * 2 + 1,
+                speed: Math.random() * 5 + 10,
+                length: Math.random() * 100 + 50,
+                angle: Math.PI / 4 // 45 degrees
+            };
+        }
+
+        const initStars = () => {
+            stars.length = 0;
+            meteors.length = 0;
+            for (let i = 0; i < numStars; i++) stars.push(createStar());
+            for (let i = 0; i < numMeteors; i++) meteors.push(createMeteor());
         };
-        initColumns();
+        initStars();
 
         const animate = () => {
-            // Semi-transparent black for trail effect
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            // Clear with semi-fade for motion blur on meteors? 
+            // Better clear fully for crisp stars, handle trails manually
+            ctx.fillStyle = '#050510'; // Deep space blue/black
             ctx.fillRect(0, 0, width, height);
 
-            ctx.font = `${fontSize}px 'JetBrains Mono', monospace`;
+            // 1. Draw Static Stars
+            stars.forEach(s => {
+                s.opacity += s.twinkleSpeed;
+                if (s.opacity > 1 || s.opacity < 0.2) s.twinkleSpeed = -s.twinkleSpeed;
 
-            for (let i = 0; i < drops.length; i++) {
-                // Random char
-                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillStyle = `rgba(255, 255, 255, ${s.opacity})`;
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
 
-                // Color variation (Glitchy brights)
-                const isBright = Math.random() > 0.95;
-                ctx.fillStyle = isBright ? '#fff' : '#646cff'; // Mostly accent, some white hints
-                if (Math.random() > 0.98) ctx.fillStyle = '#f43f5e'; // Rare red glitch
+            // 2. Draw Falling Meteors
+            ctx.lineCap = 'round';
+            meteors.forEach(m => {
+                // Update position
+                m.x -= m.speed * Math.cos(m.angle); // Move Left
+                m.y += m.speed * Math.sin(m.angle); // Move Down
 
-                // Draw
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                // Reset drop or move down
-                if (drops[i] * fontSize > height && Math.random() > 0.975) {
-                    drops[i] = 0;
+                // Respawn
+                if (m.y > height + 100 || m.x < -100) {
+                    m.x = width + Math.random() * width * 0.5;
+                    m.y = -(Math.random() * height * 0.5);
+                    m.speed = Math.random() * 5 + 10;
                 }
 
-                drops[i]++;
-            }
+                // Draw Trail
+                const gradient = ctx.createLinearGradient(
+                    m.x, m.y,
+                    m.x + m.length * Math.cos(m.angle),
+                    m.y - m.length * Math.sin(m.angle)
+                );
+                gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+                gradient.addColorStop(0.1, 'rgba(100, 108, 255, 0.8)');
+                gradient.addColorStop(1, 'rgba(100, 108, 255, 0)');
+
+                ctx.strokeStyle = gradient;
+                ctx.lineWidth = m.size;
+                ctx.beginPath();
+                ctx.moveTo(m.x, m.y);
+                ctx.lineTo(
+                    m.x + m.length * Math.cos(m.angle),
+                    m.y - m.length * Math.sin(m.angle)
+                );
+                ctx.stroke();
+
+                // Head glow
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.beginPath();
+                ctx.arc(m.x, m.y, m.size * 1.5, 0, Math.PI * 2);
+                ctx.fill();
+            });
 
             animationId = requestAnimationFrame(animate);
         };
@@ -91,7 +138,7 @@ const DigitalRainBackground = () => {
         };
     }, []);
 
-    return <canvas ref={canvasRef} className="digital-rain-bg" />;
+    return <canvas ref={canvasRef} className="falling-stars-bg" />;
 };
 
 /* ============================================
@@ -100,8 +147,8 @@ const DigitalRainBackground = () => {
 const NotFound = () => {
     return (
         <div className="not-found">
-            {/* Digital Rain Background */}
-            <DigitalRainBackground />
+            {/* Falling Stars Background */}
+            <FallingStarsBackground />
 
             {/* Content */}
             <div className="not-found__content">
@@ -111,15 +158,15 @@ const NotFound = () => {
                 </div>
 
                 {/* Message */}
-                <h1 className="not-found__title">System Malfunction</h1>
+                <h1 className="not-found__title">Stardust & Echoes</h1>
                 <p className="not-found__description">
-                    Critical Error: The requested data segment could not be located in the memory bank.
-                    <br />Rebooting reality sequence...
+                    The page you requested is just a fleeting shooting star.
+                    <br />Make a wish, or return to the galaxy you know.
                 </p>
 
                 {/* Icon */}
                 <div className="not-found__astronaut">
-                    <Terminal size={48} />
+                    <Star size={48} fill="#ffeb3b" color="#ffeb3b" style={{ filter: 'drop-shadow(0 0 10px rgba(255, 235, 59, 0.5))' }} />
                 </div>
 
                 {/* Navigation */}
@@ -127,12 +174,12 @@ const NotFound = () => {
                     <Link to="/">
                         <Button variant="primary">
                             <Home size={18} />
-                            System Reboot
+                            Back to Earth
                         </Button>
                     </Link>
                     <Button variant="outline" onClick={() => window.history.back()}>
                         <ArrowLeft size={18} />
-                        Rollback
+                        Retry Launch
                     </Button>
                 </div>
             </div>

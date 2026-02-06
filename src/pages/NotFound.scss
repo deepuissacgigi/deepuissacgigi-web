@@ -5,9 +5,9 @@
 $accent: #646cff;
 
 /* ============================================
-   DIGITAL RAIN CANVAS
+   FALLING STARS CANVAS
    ============================================ */
-.digital-rain-bg {
+.falling-stars-bg {
     position: fixed;
     top: 0;
     left: 0;
@@ -26,7 +26,7 @@ $accent: #646cff;
     justify-content: center;
     padding: 2rem;
     text-align: center;
-    background: #000;
+    background: #050510;
     position: relative;
     overflow: hidden;
 
@@ -37,13 +37,12 @@ $accent: #646cff;
         position: relative;
         z-index: 10;
         max-width: 600px;
-        /* Stronger backdrop for chaotic background */
-        background: rgba(0, 0, 0, 0.75);
+        background: rgba(5, 5, 16, 0.6);
         padding: 2.5rem;
         border-radius: 1rem;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(100, 108, 255, 0.2);
-        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
     }
 
     /* ============================================
