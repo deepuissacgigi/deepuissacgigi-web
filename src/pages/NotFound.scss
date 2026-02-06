@@ -5,16 +5,15 @@
 $accent: #646cff;
 
 /* ============================================
-   BLACK HOLE CANVAS
+   DIGITAL RAIN CANVAS
    ============================================ */
-.black-hole-bg {
+.digital-rain-bg {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: 0;
-    /* Canvas provides pure black bg */
 }
 
 /* ============================================
@@ -38,12 +37,13 @@ $accent: #646cff;
         position: relative;
         z-index: 10;
         max-width: 600px;
-        /* Add backdrop for readability against bright black hole */
-        background: rgba(0, 0, 0, 0.4);
-        padding: 2rem;
+        /* Stronger backdrop for chaotic background */
+        background: rgba(0, 0, 0, 0.75);
+        padding: 2.5rem;
         border-radius: 1rem;
-        backdrop-filter: blur(5px);
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(100, 108, 255, 0.2);
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
     }
 
     /* ============================================
