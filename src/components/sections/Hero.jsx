@@ -49,7 +49,7 @@ const Hero = () => {
 
         setIsDownloading(true);
 
-        // Animate, then download after animation
+        // Animate, then download after 1 second
         setTimeout(() => {
             const link = document.createElement('a');
             link.href = '/resume.pdf';
@@ -57,7 +57,7 @@ const Hero = () => {
             link.click();
 
             setTimeout(() => setIsDownloading(false), 500);
-        }, 600);
+        }, 1000);
     };
 
     return (

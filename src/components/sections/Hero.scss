@@ -314,28 +314,45 @@ $text-muted: rgba(255, 255, 255, 0.5);
         background: rgba($accent, 0.15);
         border-color: $accent;
         pointer-events: none;
+        box-shadow: 0 0 20px rgba($accent, 0.3);
+        animation: buttonPulse 1s ease-in-out infinite;
 
         svg {
-            animation: downloadArrow 0.6s ease-in-out infinite;
+            animation: arrowDrop 0.5s ease-in-out infinite;
         }
 
         .hero__resume-shimmer {
-            animation: shimmerLoop 1s linear infinite;
+            animation: shimmerLoop 0.8s linear infinite;
         }
     }
 }
 
-@keyframes downloadArrow {
-
-    0%,
-    100% {
-        transform: translateY(0);
-        opacity: 1;
+@keyframes arrowDrop {
+    0% {
+        transform: translateY(-4px);
+        opacity: 0.3;
     }
 
     50% {
-        transform: translateY(8px);
-        opacity: 0.5;
+        transform: translateY(6px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+}
+
+@keyframes buttonPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba($accent, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 30px rgba($accent, 0.5);
     }
 }
 
