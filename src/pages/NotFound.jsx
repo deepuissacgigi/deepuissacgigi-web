@@ -39,6 +39,8 @@ const FallingStarsBackground = () => {
         const numStars = 150;
         const meteors = [];
         const numMeteors = 10;
+        const asteroids = [];
+        const numAsteroids = 1; // Rare event
 
         function createStar() {
             return {
@@ -61,11 +63,34 @@ const FallingStarsBackground = () => {
             };
         }
 
+        function createAsteroid() {
+            // Create jagged shape
+            const vertices = [];
+            const numPoints = 8 + Math.floor(Math.random() * 6);
+            for (let i = 0; i < numPoints; i++) {
+                // Variation from circle
+                vertices.push(0.8 + Math.random() * 0.4);
+            }
+
+            return {
+                x: Math.random() * width,
+                y: -(Math.random() * height * 5 + height), // Start WAY above
+                size: Math.random() * 15 + 10,
+                speed: Math.random() * 0.5 + 0.5,
+                angle: Math.PI / 3, // Streep angle
+                rotation: Math.random() * Math.PI,
+                rotSpeed: (Math.random() - 0.5) * 0.02,
+                vertices: vertices
+            };
+        }
+
         const initStars = () => {
             stars.length = 0;
             meteors.length = 0;
+            asteroids.length = 0;
             for (let i = 0; i < numStars; i++) stars.push(createStar());
             for (let i = 0; i < numMeteors; i++) meteors.push(createMeteor());
+            for (let i = 0; i < numAsteroids; i++) asteroids.push(createAsteroid());
         };
         initStars();
 
@@ -125,6 +150,49 @@ const FallingStarsBackground = () => {
                 ctx.beginPath();
                 ctx.arc(m.x, m.y, m.size * 1.5, 0, Math.PI * 2);
                 ctx.fill();
+            });
+
+            // 3. Draw Asteroids (Rare)
+            asteroids.forEach(a => {
+                a.x -= a.speed * Math.cos(a.angle);
+                a.y += a.speed * Math.sin(a.angle);
+                a.rotation += a.rotSpeed;
+
+                // Reset very rarely
+                if (a.y > height + 100 || a.x < -100) {
+                    a.x = width + Math.random() * width * 0.5;
+                    a.y = -(Math.random() * height * 8 + height); // Long delay
+                    a.speed = Math.random() * 0.5 + 0.5;
+                }
+
+                ctx.save();
+                ctx.translate(a.x, a.y);
+                ctx.rotate(a.rotation);
+
+                ctx.fillStyle = '#2a2a35'; // Dark rocky color
+                ctx.strokeStyle = '#3a3a45'; // Lighter edge
+                ctx.lineWidth = 2;
+
+                ctx.beginPath();
+                const step = (Math.PI * 2) / a.vertices.length;
+                a.vertices.forEach((r, i) => {
+                    const angle = i * step;
+                    const vx = Math.cos(angle) * a.size * r;
+                    const vy = Math.sin(angle) * a.size * r;
+                    if (i === 0) ctx.moveTo(vx, vy);
+                    else ctx.lineTo(vx, vy);
+                });
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+
+                // Crater/Shadow detail (simple)
+                ctx.fillStyle = 'rgba(0,0,0,0.3)';
+                ctx.beginPath();
+                ctx.arc(a.size * 0.3, a.size * 0.3, a.size * 0.2, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.restore();
             });
 
             animationId = requestAnimationFrame(animate);
