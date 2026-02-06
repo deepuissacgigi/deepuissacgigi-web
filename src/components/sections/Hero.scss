@@ -305,18 +305,47 @@ $text-muted: rgba(255, 255, 255, 0.5);
     }
 
     /* Press animation */
-    &:active {
+    &:active:not(.downloading) {
         transform: scale(0.95);
+    }
+
+    /* Downloading state - animated arrow */
+    &.downloading {
         background: rgba($accent, 0.15);
         border-color: $accent;
-        box-shadow:
-            0 0 0 3px rgba($accent, 0.2),
-            inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        pointer-events: none;
 
         svg {
-            transform: translateY(6px);
-            opacity: 0.7;
+            animation: downloadArrow 0.6s ease-in-out infinite;
         }
+
+        .hero__resume-shimmer {
+            animation: shimmerLoop 1s linear infinite;
+        }
+    }
+}
+
+@keyframes downloadArrow {
+
+    0%,
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateY(8px);
+        opacity: 0.5;
+    }
+}
+
+@keyframes shimmerLoop {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 100%;
     }
 }
 

@@ -36,9 +36,28 @@ const socials = [
 ];
 
 const Hero = () => {
+    const [isDownloading, setIsDownloading] = useState(false);
+
     const scrollToSection = (id) => {
         const element = document.getElementById(id);
         if (element) element.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    const handleResumeClick = (e) => {
+        e.preventDefault();
+        if (isDownloading) return;
+
+        setIsDownloading(true);
+
+        // Animate, then download after animation
+        setTimeout(() => {
+            const link = document.createElement('a');
+            link.href = '/resume.pdf';
+            link.download = 'Deepu_Issac_Gigi_Resume.pdf';
+            link.click();
+
+            setTimeout(() => setIsDownloading(false), 500);
+        }, 600);
     };
 
     return (
@@ -89,11 +108,14 @@ const Hero = () => {
                     <Button variant="outline" onClick={() => scrollToSection('contact')}>
                         Let's Talk <ArrowRight size={18} />
                     </Button>
-                    <a href="/resume.pdf" download className="hero__resume-btn">
+                    <button
+                        className={`hero__resume-btn ${isDownloading ? 'downloading' : ''}`}
+                        onClick={handleResumeClick}
+                    >
                         <Download size={18} />
-                        <span>Resume</span>
+                        <span>{isDownloading ? 'Downloading...' : 'Resume'}</span>
                         <div className="hero__resume-shimmer"></div>
-                    </a>
+                    </button>
                 </div>
 
                 {/* Social Links */}
