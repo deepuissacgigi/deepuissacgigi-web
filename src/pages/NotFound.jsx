@@ -158,33 +158,33 @@ const FallingStarsBackground = () => {
                 // Add Tail Particles (Fire)
                 // Spawn more particles if visible or close to visible
                 if (a.y > -200 && a.y < height + 200) {
-                    for (let i = 0; i < 5; i++) { // Fire density
-                        const angleVar = (Math.random() - 0.5) * 0.5;
+                    for (let i = 0; i < 7; i++) { // Increased density
+                        // Wider spawn cone for non-straight tail
+                        const angleVar = (Math.random() - 0.5) * 1.5;
                         const speedVar = Math.random() * 2 + 1;
                         // Spawn at back of asteroid
-                        const r = a.size * 0.8;
-                        // Opposite to movement angle
-                        const spawnAngle = a.angle + Math.PI + (Math.random() - 0.5);
+                        const r = a.size * 0.5; // Spawn closer to core for dispersion
+                        const spawnAngle = a.angle + Math.PI + (Math.random() - 0.5) * 0.8;
 
                         a.tail.push({
                             x: a.x + Math.cos(spawnAngle) * r,
                             y: a.y + Math.sin(spawnAngle) * r,
-                            vx: Math.cos(a.angle + Math.PI + angleVar) * speedVar, // Move back
+                            vx: Math.cos(a.angle + Math.PI + angleVar) * speedVar, // Initial velocity
                             vy: Math.sin(a.angle + Math.PI + angleVar) * speedVar,
+                            drift: (Math.random() - 0.5) * 0.2, // Lateral turbulence
                             life: 1.0,
-                            decay: Math.random() * 0.03 + 0.02,
-                            size: Math.random() * 6 + 2,
-                            colorType: Math.random() // for gradient logic
+                            decay: Math.random() * 0.02 + 0.015, // Slower decay for longer tail
+                            size: Math.random() * 8 + 3,
                         });
                     }
                 }
 
                 // Update & Draw Tail
                 a.tail.forEach((p, index) => {
-                    p.x += p.vx;
-                    p.y += p.vy;
+                    p.x += p.vx + p.drift; // Add turbulence
+                    p.y += p.vy + p.drift;
                     p.life -= p.decay;
-                    p.size *= 0.95; // Shrink
+                    p.size *= 0.96;
 
                     if (p.life <= 0) {
                         a.tail.splice(index, 1);
