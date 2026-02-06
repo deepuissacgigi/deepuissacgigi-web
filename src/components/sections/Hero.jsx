@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Github, Linkedin, Mail, ChevronDown, Download } from 'lucide-react';
+import { ArrowRight, ArrowDown, Github, Linkedin, Mail, ChevronDown, Download } from 'lucide-react';
 import Button from '../ui/Button';
 import './Hero.scss';
 
@@ -106,7 +106,7 @@ const Hero = () => {
                         className={`hero__resume-btn ${isDownloading ? 'downloading' : ''}`}
                         onClick={handleResumeClick}
                     >
-                        <Download size={18} />
+                        {isDownloading ? <ArrowDown size={18} /> : <Download size={18} />}
                         <span>{isDownloading ? 'Downloading...' : 'Resume'}</span>
                         <div className="hero__resume-shimmer"></div>
                     </button>
