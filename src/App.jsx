@@ -46,13 +46,17 @@ function App() {
         {/* Global UI Elements */}
         <CustomCursor />
 
-        {/* Main Layout with Routes */}
+        {/* Main Layout - Only for main pages */}
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>
+
+        {/* 404 Page - Outside Layout (no navbar/footer) */}
+        <Routes>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
 
         {/* Vercel Analytics */}
         <SpeedInsights />

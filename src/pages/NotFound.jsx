@@ -35,7 +35,7 @@ const StarField = () => {
 
         // Star particles
         const stars = [];
-        const numStars = 200;
+        const numStars = 80;
 
         for (let i = 0; i < numStars; i++) {
             stars.push({
