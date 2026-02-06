@@ -169,7 +169,6 @@ const NotFound = () => {
                         <text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="22" fontWeight="900" fontFamily="sans-serif" style={{ letterSpacing: '1px' }}>
                             DG.
                         </text>
-                        <rect x="2" y="2" width="56" height="36" rx="4" stroke="#646cff" strokeWidth="2" opacity="1" />
                     </svg>
                 </div>
 
