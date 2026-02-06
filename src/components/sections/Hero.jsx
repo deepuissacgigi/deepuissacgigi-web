@@ -106,7 +106,17 @@ const Hero = () => {
                         className={`hero__resume-btn ${isDownloading ? 'downloading' : ''}`}
                         onClick={handleResumeClick}
                     >
-                        {isDownloading ? <ArrowDown size={18} /> : <Download size={18} />}
+                        <div className="hero__resume-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                {/* Arrow - this part animates */}
+                                <g className="download-arrow">
+                                    <path d="M12 3v12" />
+                                    <path d="m8 11 4 4 4-4" />
+                                </g>
+                                {/* Tray - stays static */}
+                                <path className="download-tray" d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4" />
+                            </svg>
+                        </div>
                         <span>{isDownloading ? 'Downloading...' : 'Resume'}</span>
                         <div className="hero__resume-shimmer"></div>
                     </button>
