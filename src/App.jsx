@@ -46,15 +46,15 @@ function App() {
         {/* Global UI Elements */}
         <CustomCursor />
 
-        {/* Main Layout - Only for main pages */}
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-          </Routes>
-        </Layout>
-
-        {/* 404 Page - Outside Layout (no navbar/footer) */}
         <Routes>
+          {/* Main page with Layout (navbar/footer) */}
+          <Route path="/" element={
+            <Layout>
+              <Home />
+            </Layout>
+          } />
+
+          {/* 404 Page - No Layout */}
           <Route path="*" element={<NotFound />} />
         </Routes>
 
