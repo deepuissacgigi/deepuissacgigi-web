@@ -40,7 +40,7 @@ const FallingStarsBackground = () => {
         const meteors = [];
         const numMeteors = 10;
         const asteroids = [];
-        const numAsteroids = 1; // Rare event
+        const numAsteroids = 3; // Increased from 1 to 3 for visibility
 
         function createStar() {
             return {
@@ -74,12 +74,12 @@ const FallingStarsBackground = () => {
 
             return {
                 x: Math.random() * width,
-                y: -(Math.random() * height * 5 + height), // Start WAY above
-                size: Math.random() * 15 + 10,
-                speed: Math.random() * 0.5 + 0.5,
+                y: -(Math.random() * height * 2), // Start closer (was *5 + height)
+                size: Math.random() * 20 + 15, // Slightly larger
+                speed: Math.random() * 0.8 + 0.5, // Slightly faster
                 angle: Math.PI / 3, // Streep angle
                 rotation: Math.random() * Math.PI,
-                rotSpeed: (Math.random() - 0.5) * 0.02,
+                rotSpeed: (Math.random() - 0.5) * 0.03,
                 vertices: vertices
             };
         }
@@ -158,11 +158,11 @@ const FallingStarsBackground = () => {
                 a.y += a.speed * Math.sin(a.angle);
                 a.rotation += a.rotSpeed;
 
-                // Reset very rarely
+                // Reset more frequently
                 if (a.y > height + 100 || a.x < -100) {
                     a.x = width + Math.random() * width * 0.5;
-                    a.y = -(Math.random() * height * 8 + height); // Long delay
-                    a.speed = Math.random() * 0.5 + 0.5;
+                    a.y = -(Math.random() * height * 2); // Shorter delay (was *8)
+                    a.speed = Math.random() * 0.8 + 0.5;
                 }
 
                 ctx.save();
