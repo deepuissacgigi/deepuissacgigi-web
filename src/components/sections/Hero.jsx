@@ -89,10 +89,10 @@ const Hero = () => {
                     <Button variant="outline" onClick={() => scrollToSection('contact')}>
                         Let's Talk <ArrowRight size={18} />
                     </Button>
-                    <a href="/resume.pdf" download className="hero__resume-link">
-                        <Button variant="ghost">
-                            <Download size={18} /> Resume
-                        </Button>
+                    <a href="/resume.pdf" download className="hero__resume-btn">
+                        <Download size={18} />
+                        <span>Resume</span>
+                        <div className="hero__resume-shimmer"></div>
                     </a>
                 </div>
 

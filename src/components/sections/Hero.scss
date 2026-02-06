@@ -243,6 +243,100 @@ $text-muted: rgba(255, 255, 255, 0.5);
     gap: 1rem;
     margin-bottom: 2.5rem;
     animation: fadeUp 0.8s ease 0.4s both;
+    flex-wrap: wrap;
+}
+
+/* Resume Button - Modern with shimmer */
+.hero__resume-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    svg {
+        width: 18px;
+        height: 18px;
+        transition: transform 0.3s ease;
+    }
+
+    span {
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Shimmer effect */
+    .hero__resume-shimmer {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg,
+                transparent,
+                rgba(255, 255, 255, 0.15),
+                transparent);
+        transition: left 0.5s ease;
+    }
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba($accent, 0.5);
+        color: #fff;
+        box-shadow: 0 0 20px rgba($accent, 0.2);
+
+        svg {
+            transform: translateY(2px);
+        }
+
+        .hero__resume-shimmer {
+            left: 100%;
+        }
+    }
+
+    /* Press animation */
+    &:active {
+        transform: scale(0.95);
+        background: rgba($accent, 0.15);
+        border-color: $accent;
+        box-shadow:
+            0 0 0 3px rgba($accent, 0.2),
+            inset 0 2px 4px rgba(0, 0, 0, 0.2);
+
+        svg {
+            animation: downloadBounce 0.4s ease;
+        }
+    }
+}
+
+@keyframes downloadBounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    25% {
+        transform: translateY(4px);
+    }
+
+    50% {
+        transform: translateY(2px);
+    }
+
+    75% {
+        transform: translateY(4px);
+    }
 }
 
 /* Socials */
