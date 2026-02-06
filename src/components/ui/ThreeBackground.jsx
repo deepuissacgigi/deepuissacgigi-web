@@ -102,4 +102,3 @@ const ThreeBackground = () => {
 };
 
 export default ThreeBackground;
-
