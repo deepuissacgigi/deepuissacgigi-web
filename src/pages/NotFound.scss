@@ -62,6 +62,15 @@ $accent: #646cff;
         &::after {
             background: transparent !important;
         }
+
+        /* Override glitch for infinite loop */
+        &::before {
+            animation: glitch-user-1 1.5s infinite linear alternate-reverse !important;
+        }
+
+        &::after {
+            animation: glitch-user-2 1.5s infinite linear alternate-reverse !important;
+        }
     }
 
     /* ============================================
