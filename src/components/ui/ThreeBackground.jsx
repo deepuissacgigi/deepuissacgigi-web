@@ -57,7 +57,7 @@ const Stars = ({ particleCount }) => {
 
 const ThreeBackground = () => {
     const [shouldRender, setShouldRender] = useState(true);
-    const particleCount = isLowPowerDevice() ? 800 : 1500;
+    const particleCount = isLowPowerDevice() ? 300 : 1500;
 
     // Disable on reduced motion preference
     useEffect(() => {
@@ -91,8 +91,9 @@ const ThreeBackground = () => {
                         invalidate();
                         requestAnimationFrame(animate);
                     };
-                    // Throttle to 30fps
-                    setInterval(() => invalidate(), 33);
+                    // Throttle to ~30fps
+                    const interval = setInterval(() => invalidate(), 33);
+                    return () => clearInterval(interval);
                 }}
             >
                 <Stars particleCount={particleCount} />

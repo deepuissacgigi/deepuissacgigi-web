@@ -130,7 +130,13 @@ const Projects = () => {
                         >
                             {/* Background Image */}
                             <div className="card-visual">
-                                <img src={project.image} alt={project.title} loading="lazy" />
+                                <img
+                                    src={project.image}
+                                    alt={project.title}
+                                    loading="lazy"
+                                    width="600"
+                                    height="400"
+                                />
                             </div>
 
                             {/* Hover Arrow */}
@@ -153,7 +159,14 @@ const Projects = () => {
                                     {project.tech.map((t) => (
                                         <span key={t} className="tech-tag">
                                             {techIcons[t] && (
-                                                <img src={techIcons[t]} alt={t} className="tech-icon" />
+                                                <img
+                                                    src={techIcons[t]}
+                                                    alt={t}
+                                                    className="tech-icon"
+                                                    width="20"
+                                                    height="20"
+                                                    loading="lazy"
+                                                />
                                             )}
                                             {t}
                                         </span>

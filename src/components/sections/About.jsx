@@ -117,7 +117,13 @@ const About = () => {
                                     className="skill-pill"
                                     style={{ '--skill-color': skill.color }}
                                 >
-                                    <img src={skill.icon} alt={skill.name} />
+                                    <img
+                                        src={skill.icon}
+                                        alt={skill.name}
+                                        width="24"
+                                        height="24"
+                                        loading="lazy"
+                                    />
                                     <span>{skill.name}</span>
                                 </div>
                             ))}
