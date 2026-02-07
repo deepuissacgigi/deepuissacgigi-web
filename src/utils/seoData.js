@@ -8,10 +8,10 @@ export const SEO_DATA = {
         schema: {
             "@type": "WebSite",
             "name": "Deepu Issac Portfolio",
-            "url": "https://yourdomain.com",
+            "url": "https://deepuissacgigi.vercel.app",
             "potentialAction": {
                 "@type": "SearchAction",
-                "target": "https://yourdomain.com/?s={search_term_string}",
+                "target": "https://deepuissacgigi.vercel.app/?s={search_term_string}",
                 "query-input": "required name=search_term_string"
             }
         }
@@ -39,3 +39,4 @@ export const SEO_DATA = {
         }
     }
 };
+
