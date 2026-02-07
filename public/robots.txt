@@ -2,5 +2,5 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Host: https://deepuissacgigi.vercel.app
-Sitemap: https://deepuissacgigi.vercel.app/sitemap.xml
+Host: https://deepuissacgigi-web.vercel.app
+Sitemap: https://deepuissacgigi-web.vercel.app/sitemap.xml
